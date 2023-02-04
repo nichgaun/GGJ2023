@@ -7,14 +7,13 @@ public class HexMap : MonoBehaviour {
     int width = 10, height = 10;
     public GameObject tilePrefab;
     float tileSize = 2f;
-    float tileWidth, tileHeigth; 
+    float tileWidth, tileHeight; 
+    [SerializeField] GameObject player;
 
     private void Awake () {
         tileWidth = Mathf.Sqrt(3) * tileSize;
-        tileHeigth = 3/2 * tileSize;
-    }
+        tileHeight = 3/2 * tileSize;
 
-    private void Start () {
         for (int i = 0; i < width; i++) {
             map.Add(new List<Tile>());
             for (int j = 0; j < height; j++) {
@@ -22,7 +21,7 @@ public class HexMap : MonoBehaviour {
 
                 var tile = Instantiate(
                     tilePrefab, 
-                    new Vector3(i*tileWidth+offset, j*tileHeigth*3f/2f, 0), 
+                    new Vector3(i*tileWidth+offset, j*tileHeight*3f/2f, 0), 
                     new Quaternion(0.5f,-0.5f,-0.5f,0.5f), 
                     transform
                 ).GetComponent<Tile>();

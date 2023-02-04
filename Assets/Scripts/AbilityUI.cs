@@ -13,11 +13,11 @@ public class AbilityUI : MonoBehaviour
 
     private string clicked = "";
     private Rect WindowRect = new Rect((Screen.width / 2) - 400, Screen.height -120, 800, 100);
+    GameManager gameManager;
     // Start is called before the first frame update
     void Start()
     {
-        
-
+        gameManager = Camera.main.GetComponent<GameManager>();
     }
 
     private void Update() {
@@ -34,14 +34,15 @@ public class AbilityUI : MonoBehaviour
 
             GUI.skin = guiSkin;
 
-            WindowRect = GUI.Window(1, WindowRect, abilityMenu, "Abilties");
+            WindowRect = GUI.Window(1, WindowRect, AbilityMenu, "Abilties");
         }
     }
 
-    private void abilityMenu(int id) {
+    private void AbilityMenu(int id) {
         GUILayout.BeginHorizontal();
         if (GUI.Button(new Rect(15,15,80,80), "Move")) {
             //Move Function
+            gameManager.GetPlayer().GetComponent<Movement>().OnClick();
         }
         if (GUI.Button(new Rect(110, 15, 80, 80), "Root")) {
             //Root Function
