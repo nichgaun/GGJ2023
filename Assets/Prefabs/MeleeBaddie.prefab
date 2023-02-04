@@ -95,7 +95,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 6502378137867417724}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -114,7 +114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   position: {fileID: 0}
   stunned: 0
-  stunImage: {fileID: 685833286177168177, guid: ef5e3203c6501ba498ce7abb343dd932, type: 3}
+  stunPrefab: {fileID: 685833286177168177, guid: ef5e3203c6501ba498ce7abb343dd932, type: 3}
 --- !u!114 &6878813325210762628
 MonoBehaviour:
   m_ObjectHideFlags: 0
