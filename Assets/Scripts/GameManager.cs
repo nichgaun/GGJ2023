@@ -5,7 +5,7 @@ using System;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] GameObject hexMap;
+    [SerializeField] public GameObject hexMap;
     [SerializeField] GameObject player;
 
     public Tile playerPosition;

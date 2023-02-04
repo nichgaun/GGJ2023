@@ -158,5 +158,32 @@ public class HexMap : MonoBehaviour {
             }
         }
         return null;
-    }    
+    } 
+
+    public bool LineOfSight(Tile position, Tile target) {
+        List<Tile> path = FindPath(position, target);
+
+        foreach (Tile tile in path) {
+            Debug.Log("Position: "+tile.x+", "+tile.y);
+        }
+
+        if (path.Count <= 2) {
+            return true;
+        } 
+
+
+        Vector2Int diff = ToAxial(path[0]) - ToAxial(path[1]);
+        Debug.Log(diff);
+
+        for (int i = 1; i < path.Count-1; i++) {
+            Vector2Int newDiff = ToAxial(path[i]) - ToAxial(path[i+1]);
+            Debug.Log(newDiff);
+            if (newDiff != diff) {
+                return false;
+            }
+        }
+
+        return true;
+       
+    }   
 }

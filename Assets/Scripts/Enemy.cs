@@ -6,12 +6,13 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour {
     HexMap map;
-    Tile position;
+    public Tile position;
     List<Tile> path;
     int speed = 3;
     Color color = Color.white;
     public bool stunned = false;
     Renderer renderer;
+    RangedAttack attack;
 
     public static Dictionary<Tile, Enemy> EnemyLocations = new Dictionary<Tile, Enemy>();
 
@@ -19,6 +20,7 @@ public class Enemy : MonoBehaviour {
         map = GameObject.Find("HexMap").GetComponent<HexMap>();
         map.AddEnemy(this);
         renderer = GetComponent<Renderer>();
+        attack = gameObject.GetComponent<RangedAttack>();
 
         if (position == null) {
             SetPosition(map.GetRandomTile());
@@ -80,6 +82,9 @@ public class Enemy : MonoBehaviour {
     private void Turn() {
         if (!stunned) {
             Move();
+            if (attack.CheckShot()) {
+                attack.AttackPlayer();
+            }
         }
         else {
             stunned = false;
