@@ -43,7 +43,8 @@ public class Enemy : MonoBehaviour {
         if (tile is null)
             return;
         
-        EnemyLocations.Remove(position);
+        if (position != null && EnemyLocations.ContainsKey(position))
+            EnemyLocations.Remove(position);
         position = tile;
         EnemyLocations[position] = this;
         transform.position = position.transform.position + new Vector3(0f, 0f, 0.75f);
