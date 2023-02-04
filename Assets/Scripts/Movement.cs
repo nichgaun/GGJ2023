@@ -36,7 +36,18 @@ public class Movement : MonoBehaviour
         gameManager.GetPlayer().transform.SetParent(tile.transform, false);
         gameManager.playerPosition = tile;
 
+        CheckTile(tile);
+
         gameManager.UnsubscribeToOnTileClick(Move);
 
+    }
+
+    public void CheckTile(Tile tile) {
+        //generalizing this function in case we need to check anything other than goal
+
+        if (tile.isGoal == true) {
+            Debug.Log("Player reached goal");
+            //TODO: goal things
+        }
     }
 }
