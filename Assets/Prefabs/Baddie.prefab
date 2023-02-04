@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6502378137867417726}
   - component: {fileID: 6502378137867417725}
   - component: {fileID: 6502378137867417721}
+  - component: {fileID: 6878813325210762628}
   m_Layer: 0
   m_Name: Baddie
   m_TagString: Untagged
@@ -111,3 +112,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1357cc841ca74246ba069cd401df223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  position: {fileID: 0}
+  stunned: 0
+--- !u!114 &6878813325210762628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6502378137867417724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10a511fbf58897e448f41e58bea16d93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxRange: 3
+  damage: 10
+  player: {fileID: 0}
