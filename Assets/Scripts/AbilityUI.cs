@@ -12,7 +12,6 @@ public class AbilityUI : MonoBehaviour
     public bool DragWindow = false;
     public bool showUI = false;
     [SerializeField] Font font;
-    [SerializeField] Texture2D buttonTexture;
 
     private string clicked = "";
     private Rect WindowRect = new Rect((Screen.width / 2) - 400, Screen.height -120, 800, 100);
