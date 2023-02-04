@@ -313,6 +313,7 @@ GameObject:
   - component: {fileID: 935080387}
   - component: {fileID: 935080386}
   - component: {fileID: 935080385}
+  - component: {fileID: 935080389}
   m_Layer: 0
   m_Name: Baddie
   m_TagString: Untagged
@@ -399,6 +400,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &935080389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 935080384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1357cc841ca74246ba069cd401df223, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1198723069007606977
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -409,6 +422,10 @@ PrefabInstance:
     - target: {fileID: 1198723069014759450, guid: b72a2c0d7ac05ed4caf1ce273f78acea, type: 3}
       propertyPath: m_Name
       value: HexMap
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198723069014759450, guid: b72a2c0d7ac05ed4caf1ce273f78acea, type: 3}
+      propertyPath: m_TagString
+      value: map
       objectReference: {fileID: 0}
     - target: {fileID: 1198723069014759452, guid: b72a2c0d7ac05ed4caf1ce273f78acea, type: 3}
       propertyPath: m_RootOrder
