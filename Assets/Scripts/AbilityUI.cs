@@ -39,11 +39,14 @@ public class AbilityUI : MonoBehaviour
     }
 
     private void AbilityMenu(int id) {
+        Movement movement = gameManager.GetPlayer().GetComponent<Movement>();
         GUILayout.BeginHorizontal();
-        if (GUI.Button(new Rect(15,15,80,80), "Move")) {
+        GUI.enabled = movement.moveRemaining > 0;
+        if (GUI.Button(new Rect(15,15,80,80), "Move " + movement.moveRemaining)) {
             //Move Function
-            gameManager.GetPlayer().GetComponent<Movement>().OnClick();
+            movement.OnClick();
         }
+        GUI.enabled = true;
         if (GUI.Button(new Rect(110, 15, 80, 80), "Root")) {
             //Root Function
         }

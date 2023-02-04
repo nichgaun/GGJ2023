@@ -7,11 +7,10 @@ public class Movement : MonoBehaviour
     private GameManager gameManager;
     private HexMap hexMap;
     private int maxMove = 2;
-    private int moveRemaining = 2;
+    public int moveRemaining = 2;
 
     private void Start() {
         gameManager = Camera.main.GetComponent<GameManager>();
-        hexMap = GameObject.Find("HexMap").GetComponent<HexMap>();
     }
 
     //nick is cringe
@@ -24,7 +23,7 @@ public class Movement : MonoBehaviour
 
         Debug.Log("Moving to: "+obj.name);
 
-        int distance = hexMap.GetDistance(gameManager.playerPosition, tile);
+        int distance = tile.map.GetDistance(gameManager.playerPosition, tile);
 
         Debug.Log(distance);
 
@@ -35,6 +34,7 @@ public class Movement : MonoBehaviour
         moveRemaining -= distance;
 
         gameManager.GetPlayer().transform.SetParent(tile.transform, false);
+        gameManager.playerPosition = tile;
 
     }
 }
