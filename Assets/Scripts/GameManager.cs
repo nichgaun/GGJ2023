@@ -8,16 +8,21 @@ public class GameManager : MonoBehaviour
     [SerializeField] public GameObject hexMap;
     [SerializeField] GameObject player;
     [SerializeField] public GameObject trapPrefab;
+    [SerializeField] GameObject meleePrefab;
+    [SerializeField] GameObject rangedPrefab;
 
     public Tile playerPosition;
+    HexMap hexMapObj;
 
     System.Action <GameObject> onClickCallback = (GameObject g)=>{};
 
 
     public void Start() {
-        Tile startTile = hexMap.GetComponent<HexMap>().GetTile(new Vector2Int(0,0));
+        hexMapObj = hexMap.GetComponent<HexMap>();
+        Tile startTile = hexMapObj.GetTile(new Vector2Int(0,0));
         player.transform.parent = startTile.transform;
         playerPosition = startTile;
+        GenerateEnemies(0, 1);
     }
 
     public void ExecuteOnClick(GameObject obj) {
@@ -39,7 +44,13 @@ public class GameManager : MonoBehaviour
     }
 
     public void GenerateEnemies(int meleeEnemies = 2, int rangedEnemies = 2) {
-        
+        for (int i=0; i<meleeEnemies; i++) {
+            var enemy = Instantiate(meleePrefab);
+        }
+
+        for (int i=0; i<rangedEnemies; i++) {
+            var enemy = Instantiate(rangedPrefab);
+        }
     }
 
 }
