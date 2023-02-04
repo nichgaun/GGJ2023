@@ -20,10 +20,8 @@ public class HexMap : MonoBehaviour {
             for (int j = 0; j < height; j++) {
                 float offset = j % 2 == 0 ? 0f : tileWidth/2f;
                 var tile = Instantiate(tilePrefab, new Vector3(i*tileWidth+offset, j*tileHeigth*3f/2f, 0), new Quaternion(0.5f,-0.5f,-0.5f,0.5f), transform);
-                tile.GetComponent<Tile>().x = i;
-                tile.GetComponent<Tile>().y = j;
+                tile.GetComponent<Tile>().Initialize(i, j);
                 map[i].Add(tile);
-                
             }
         }
     }
