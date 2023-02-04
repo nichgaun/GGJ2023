@@ -10,6 +10,8 @@ public class Enemy : MonoBehaviour {
     List<Tile> path;
     int speed = 3;
 
+    static Dictionary<Tile, Enemy> EnemyLocations = new Dictionary<Tile, Enemy>();
+
     private void Start () {
         map = GameObject.Find("HexMap").GetComponent<HexMap>();
         map.AddEnemy(this);
@@ -36,8 +38,10 @@ public class Enemy : MonoBehaviour {
     void SetPosition (Tile tile) {
         if (tile is null)
             return;
-
+        
+        EnemyLocations.Remove(position);
         position = tile;
+        EnemyLocations[position] = this;
         transform.position = position.transform.position + new Vector3(0f, 0f, 0.75f);
     }
 
