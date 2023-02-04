@@ -6,7 +6,6 @@ public class Stun : MonoBehaviour {
     private GameManager gameManager;
     private HexMap hexMap;
     public int maxDistance = 5;
-    public GameObject trapPrefab;
     
     private void Start () {
         gameManager = Camera.main.GetComponent<GameManager>();

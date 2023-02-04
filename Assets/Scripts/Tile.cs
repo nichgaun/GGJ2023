@@ -27,6 +27,10 @@ public class Tile : MonoBehaviour {
         gameManager = Camera.main.GetComponent<GameManager>();
     }
 
+    public void ChangeColor (Color c) {
+        renderer.material.color = c;
+    }
+
     // implement movement
     private void Awake() {
         renderer = GetComponent<Renderer>();
