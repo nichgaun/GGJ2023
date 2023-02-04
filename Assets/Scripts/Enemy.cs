@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour {
     public bool stunned = false;
     Renderer renderer;
     RangedAttack attack;
+    [SerializeField] GameObject stunImage;
 
     public static Dictionary<Tile, Enemy> EnemyLocations = new Dictionary<Tile, Enemy>();
 
@@ -68,6 +69,14 @@ public class Enemy : MonoBehaviour {
     public void Stun() {
         stunned = true;
         SetColor();
+
+        StartCoroutine(ShowStun());
+    }
+
+    IEnumerator ShowStun() {
+        stunImage.SetActive(true);
+        yield return new WaitForSeconds(1);
+        stunImage.SetActive(false);
     }
 
     private void Update() {
