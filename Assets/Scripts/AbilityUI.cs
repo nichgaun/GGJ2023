@@ -44,6 +44,7 @@ public class AbilityUI : MonoBehaviour
     private void AbilityMenu(int id) {
         Movement movement = gameManager.GetPlayer().GetComponent<Movement>();
         Trap trap = gameManager.GetPlayer().GetComponent<Trap>();
+        Stun stun = gameManager.GetPlayer().GetComponent<Stun>();
         GUILayout.BeginHorizontal();
         GUI.enabled = movement.moveRemaining > 0;
         if (GUI.Button(new Rect(15,15,80,80), "Move " + movement.moveRemaining)) {
@@ -53,10 +54,15 @@ public class AbilityUI : MonoBehaviour
         GUI.enabled = true;
         if (GUI.Button(new Rect(110, 15, 80, 80), "Root")) {
             //Root Function
+            //root.OnClick();
         }
         if (GUI.Button(new Rect(205, 15, 80, 80), "Trap:Rng " + trap.maxDistance)) {
             //Trap Function
             trap.OnClick();
+        }
+        if (GUI.Button(new Rect(300, 15, 80, 80), "Stun:Rng " + stun.maxDistance)) {
+            //Stun Function
+            stun.OnClick();
         }
         GUILayout.EndHorizontal();
     }

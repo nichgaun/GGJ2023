@@ -9,10 +9,14 @@ public class Enemy : MonoBehaviour {
     Tile position;
     List<Tile> path;
     int speed = 3;
+    Color color = Color.white;
+    public bool stunned = false;
+    Renderer renderer;
 
     private void Start () {
         map = GameObject.Find("HexMap").GetComponent<HexMap>();
         map.AddEnemy(this);
+        renderer = GetComponent<Renderer>();
 
         if (position == null) {
             SetPosition(map.GetRandomTile());
@@ -54,9 +58,33 @@ public class Enemy : MonoBehaviour {
         }
     }
 
+    public void Stun() {
+        stunned = true;
+        SetColor();
+    }
+
     private void Update() {
         if (Input.GetKeyDown(KeyCode.Space)) {
-            Move();
+            Turn();
+        }
+        if (Input.GetKeyDown(KeyCode.S)) {
+            Stun();
         }
     }
+
+    private void Turn() {
+        if (!stunned) {
+            Move();
+        }
+        else {
+            stunned = false;
+        }
+        SetColor();
+    }
+
+    private void SetColor() {
+        color = stunned ? Color.yellow : Color.white;
+        renderer.material.color = color;
+    }
+    
 }
