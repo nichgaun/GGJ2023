@@ -9,6 +9,7 @@ public class Tile : MonoBehaviour {
     public bool selected = false, passable = true;
     Color color = Color.white;
     public HexMap map;
+    public bool isTrapped = false;
 
     //static is cringe
 

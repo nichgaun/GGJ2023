@@ -28,6 +28,7 @@ public class Trap : MonoBehaviour
         }
 
         var trap = Instantiate(trapPrefab, tile.transform.position, Quaternion.identity);
+        tile.isTrapped = true;
 
         gameManager.UnsubscribeToOnTileClick(PlaceTrap);
     }
