@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
-public class AbilityUI : MonoBehaviour
-{
-
+public class AbilityUI : MonoBehaviour {
     public GUISkin guiSkin;
     public Texture2D background, LOGO;
     public bool DragWindow = false;
@@ -17,18 +16,34 @@ public class AbilityUI : MonoBehaviour
     private Rect WindowRect = new Rect((Screen.width / 2) - 400, Screen.height -120, 800, 100);
     GameManager gameManager;
     GUIStyle ButtonStyle = new GUIStyle();
+
+    List<Ability> abilities = new List<Ability>();
+
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start () {
         gameManager = Camera.main.GetComponent<GameManager>();
-        
-        
+
+        foreach (AbilityType type in Enum.GetValues(typeof(AbilityType))) {
+            Ability ability = new Ability();
+            ability.Initialize(type);
+            abilities.Add(ability);
+        }
     }
 
-    private void Update() {
+    private void Turn () {
+        foreach (var ability in abilities) {
+            ability.Turn();
+        }
+    }
+
+    private void Update () {
         //TODO: Switch to turn based rather than button toggle
         if (Input.GetKeyDown(KeyCode.Tab)) {
             showUI = !showUI;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            Turn();
         }
     }
     
@@ -42,27 +57,14 @@ public class AbilityUI : MonoBehaviour
     }
 
     private void AbilityMenu(int id) {
-        Movement movement = gameManager.GetPlayer().GetComponent<Movement>();
-        Trap trap = gameManager.GetPlayer().GetComponent<Trap>();
-        Stun stun = gameManager.GetPlayer().GetComponent<Stun>();
         GUILayout.BeginHorizontal();
-        GUI.enabled = movement.moveRemaining > 0;
-        if (GUI.Button(new Rect(15,15,80,80), "Move " + movement.moveRemaining)) {
-            //Move Function
-            movement.OnClick();
-        }
-        GUI.enabled = true;
-        if (GUI.Button(new Rect(110, 15, 80, 80), "Root")) {
-            //Root Function
-            //root.OnClick();
-        }
-        if (GUI.Button(new Rect(205, 15, 80, 80), "Trap:Rng " + trap.maxDistance)) {
-            //Trap Function
-            trap.OnClick();
-        }
-        if (GUI.Button(new Rect(300, 15, 80, 80), "Stun:Rng " + stun.maxDistance)) {
-            //Stun Function
-            stun.OnClick();
+        int i = 0;
+        foreach (var ability in abilities) {
+            GUI.enabled = !ability.used;
+            if (GUI.Button(new Rect(15 + 105*i,15,80,80), ability.description(ability))) {
+                ability.OnClick();
+            }
+            i++;
         }
         GUILayout.EndHorizontal();
     }
