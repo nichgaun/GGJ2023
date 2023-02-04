@@ -5,6 +5,7 @@ using UnityEngine;
 public class Tile : MonoBehaviour {
     public int x, y;
     Renderer renderer;
+    bool selected = false;
 
     public void Initialize (int x, int y) {
         this.x = x;
@@ -17,10 +18,12 @@ public class Tile : MonoBehaviour {
     }
 
     private void OnMouseOver() {
+        selected = true;
         renderer.material.color = Color.cyan;
     }
 
     private void OnMouseExit() {
+        selected = false;
         renderer.material.color = Color.white;
     }
 }

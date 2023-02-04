@@ -9,12 +9,12 @@ public class HexMap : MonoBehaviour {
     float tileSize = 2f;
     float tileWidth, tileHeigth; 
 
-    private void Awake() {
+    private void Awake () {
         tileWidth = Mathf.Sqrt(3) * tileSize;
         tileHeigth = 3/2 * tileSize;
     }
 
-    private void Start() {
+    private void Start () {
         for (int i = 0; i < width; i++) {
             map.Add(new List<GameObject>());
             for (int j = 0; j < height; j++) {
@@ -24,5 +24,10 @@ public class HexMap : MonoBehaviour {
                 map[i].Add(tile);
             }
         }
+    }
+
+    public List<Tile> GetNeighbors (Tile tile) {
+        List<Tile> tiles = new List<Tile>();
+        return tiles;
     }
 }
