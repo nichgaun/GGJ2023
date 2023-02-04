@@ -395,6 +395,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HexMap
       objectReference: {fileID: 0}
+    - target: {fileID: 1198723069014759450, guid: b72a2c0d7ac05ed4caf1ce273f78acea, type: 3}
+      propertyPath: m_TagString
+      value: map
+      objectReference: {fileID: 0}
     - target: {fileID: 1198723069014759452, guid: b72a2c0d7ac05ed4caf1ce273f78acea, type: 3}
       propertyPath: m_RootOrder
       value: 2
