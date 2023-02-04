@@ -5,9 +5,12 @@ using UnityEngine;
 public class Tile : MonoBehaviour {
     public int x, y;
     Renderer renderer;
+    private GameManager gameManager;
     public bool selected = false, passable = true;
     Color color = Color.white;
-    HexMap map;
+    public HexMap map;
+
+    //static is cringe
 
     public void Initialize (int x, int y, HexMap map) {
         this.x = x;
@@ -17,6 +20,10 @@ public class Tile : MonoBehaviour {
 
     public override string ToString () {
         return "x=" + x + " y=" + y;
+    }
+
+    private void Start() {
+        gameManager = Camera.main.GetComponent<GameManager>();
     }
 
     // implement movement
@@ -45,5 +52,9 @@ public class Tile : MonoBehaviour {
             color = passable ? Color.white : Color.gray;
             renderer.material.color = color;
         }
+    }
+
+    private void OnMouseUpAsButton() {
+        gameManager.ExecuteOnClick(gameObject);
     }
 }

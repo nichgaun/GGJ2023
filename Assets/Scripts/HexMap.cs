@@ -8,7 +8,8 @@ public class HexMap : MonoBehaviour {
     int width = 10, height = 10;
     public GameObject tilePrefab;
     float tileSize = 2f;
-    float tileWidth, tileHeigth; 
+    float tileWidth, tileHeight; 
+    [SerializeField] GameObject player;
 
     List<Enemy> enemies = new List<Enemy>();
 
@@ -18,7 +19,7 @@ public class HexMap : MonoBehaviour {
 
     private void Awake () {
         tileWidth = Mathf.Sqrt(3) * tileSize;
-        tileHeigth = 3/2 * tileSize;
+        tileHeight = 3/2 * tileSize;
 
         for (int i = 0; i < width; i++) {
             map.Add(new List<Tile>());
@@ -27,7 +28,7 @@ public class HexMap : MonoBehaviour {
 
                 var tile = Instantiate(
                     tilePrefab, 
-                    new Vector3(i*tileWidth+offset, j*tileHeigth*3f/2f, 0), 
+                    new Vector3(i*tileWidth+offset, j*tileHeight*3f/2f, 0), 
                     new Quaternion(0.5f,-0.5f,-0.5f,0.5f), 
                     transform
                 ).GetComponent<Tile>();
