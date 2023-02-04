@@ -5,11 +5,18 @@ using UnityEngine;
 public class Tile : MonoBehaviour {
     public int x, y;
     Renderer renderer;
-    bool selected = false;
+    public bool selected = false, passable = true;
+    Color color = Color.white;
+    HexMap map;
 
-    public void Initialize (int x, int y) {
+    public void Initialize (int x, int y, HexMap map) {
         this.x = x;
         this.y = y;
+        this.map = map;
+    }
+
+    public override string ToString () {
+        return "x=" + x + " y=" + y;
     }
 
     // implement movement
@@ -19,11 +26,18 @@ public class Tile : MonoBehaviour {
 
     private void OnMouseOver() {
         selected = true;
-        renderer.material.color = Color.cyan;
+        renderer.material.color = Color.cyan*color;
     }
 
     private void OnMouseExit() {
         selected = false;
-        renderer.material.color = Color.white;
+        renderer.material.color = color;
+    }
+
+    private void OnMouseDown() {
+        // passable = !passable;
+        color = passable ? Color.white : Color.gray;
+        renderer.material.color = color;
+        map.SetTileToPathFind(this);
     }
 }

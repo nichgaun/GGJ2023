@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class HexMap : MonoBehaviour {
     List<List<Tile>> map = new List<List<Tile>>();
@@ -27,7 +28,7 @@ public class HexMap : MonoBehaviour {
                     transform
                 ).GetComponent<Tile>();
 
-                tile.Initialize(i, j);
+                tile.Initialize(i, j, this);
                 map[i].Add(tile);
             }
         }
@@ -40,8 +41,8 @@ public class HexMap : MonoBehaviour {
     }
 
     Vector2Int ToAxial (Tile hex) {
-        var q = hex.y - (hex.x - (hex.y&1)) / 2;
-        var r = hex.x;
+        var q = hex.x - (hex.y - (hex.y&1)) / 2;
+        var r = hex.y;
         return new Vector2Int (q, r);
     }
 
@@ -80,10 +81,71 @@ public class HexMap : MonoBehaviour {
         var axial = ToAxial(tile);
         foreach (var direction in AxialDirections) {
             var neighbor = FromAxial(axial + direction);
-            if (tile != null)
+            if (neighbor != null && neighbor.passable)
                 tiles.Add(neighbor);
         }
 
         return tiles;
     }
+
+    List<Tile> finders = new List<Tile>(), path = new List<Tile>();
+    public void SetTileToPathFind (Tile tile) {
+        finders.Add(tile);
+        if (finders.Count >= 2) {
+            int c = finders.Count;
+            path = FindPath(finders[c-2], finders[c-1]);
+        }
+    }
+
+    List<Tile> GetPath (Dictionary<Tile, Tile> cameFrom, Tile current) {
+        List<Tile> path = new List<Tile> {current};
+
+        while (cameFrom.ContainsKey(current)) {
+            current = cameFrom[current];
+            path.Add(current);
+        }
+
+        return path;
+    }
+
+    private void OnDrawGizmos() {
+        Tile current = null;
+        Gizmos.color = Color.green;
+        foreach (var tile in path) {
+            if (current != null)
+                Gizmos.DrawLine(current.transform.position, tile.transform.position);
+            current = tile;
+        }
+    }
+
+    public List<Tile> FindPath (Tile start, Tile goal) {
+        Utils.PriorityQueue<Tile, float> openSet = new Utils.PriorityQueue<Tile, float> ();
+        openSet.Enqueue(start, 0f);
+
+        var cameFrom = new Dictionary<Tile, Tile>();
+        var gScores = new Dictionary<Tile, float> { {start, 0f} };
+        var fScores = new Dictionary<Tile, float> { {start, GetDistance(start, goal)} };
+
+        while (openSet.Count != 0) {
+            var current = openSet.Dequeue();
+
+            if (current == goal) {
+                return GetPath(cameFrom, current);
+            }
+
+            foreach (var neighbor in GetNeighbors(current)) {
+                float gScore = gScores[current] + 1f;
+                if (!gScores.ContainsKey(neighbor) || gScore < gScores[neighbor]) {
+                    cameFrom[neighbor] = current;
+                    gScores[neighbor] = gScore;
+                    fScores[neighbor] = gScore + GetDistance(neighbor, goal);
+                    if (!openSet.UnorderedItems.Any(x => x.Element == neighbor))
+                        openSet.Enqueue(neighbor, fScores[neighbor]);
+                }
+            }
+        }
+        return null;
+    }
+
+    
 }
