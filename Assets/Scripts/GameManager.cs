@@ -37,4 +37,8 @@ public class GameManager : MonoBehaviour
         return player;
     }
 
+    public void GenerateEnemies(int meleeEnemies = 2, int rangedEnemies = 2) {
+        
+    }
+
 }
