@@ -79,7 +79,7 @@ public class Enemy : MonoBehaviour {
         }
     }
 
-    private void Turn() {
+    private void Turn () {
         if (!stunned) {
             Move();
             if (attack.CheckShot()) {

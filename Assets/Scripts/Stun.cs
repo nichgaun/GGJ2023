@@ -6,6 +6,7 @@ public class Stun : MonoBehaviour {
     private GameManager gameManager;
     private HexMap hexMap;
     public int maxDistance = 5;
+    public bool used = false;
     
     private void Start () {
         gameManager = Camera.main.GetComponent<GameManager>();
@@ -28,6 +29,7 @@ public class Stun : MonoBehaviour {
         if (Enemy.EnemyLocations.ContainsKey(tile)) {
             var enemy = Enemy.EnemyLocations[tile];
             enemy.Stun();
+            used = true;
         }
 
         gameManager.UnsubscribeToOnTileClick(StunEnemy);

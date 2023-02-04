@@ -8,17 +8,22 @@ public class Trap : MonoBehaviour
     private HexMap hexMap;
     public int maxDistance = 5;
     public GameObject trapPrefab;
+    public bool used = false;
     
-    private void Start() {
+    private void Start () {
         gameManager = Camera.main.GetComponent<GameManager>();
     }
 
     //nick is cringe
-    public void OnClick(){
+    public void OnClick () {
         gameManager.SubscribeToOnTileClick(PlaceTrap);
     }
 
-    public void PlaceTrap(GameObject obj) {
+    public void Turn () {
+
+    }
+
+    public void PlaceTrap (GameObject obj) {
         Tile tile = obj.GetComponent<Tile>();
 
         int distance = tile.map.GetDistance(gameManager.playerPosition, tile);
@@ -29,6 +34,7 @@ public class Trap : MonoBehaviour
 
         var trap = Instantiate(trapPrefab, tile.transform.position, Quaternion.identity);
         tile.isTrapped = true;
+        used = true;
 
         gameManager.UnsubscribeToOnTileClick(PlaceTrap);
     }

@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] public GameObject hexMap;
     [SerializeField] GameObject player;
+    [SerializeField] public GameObject trapPrefab;
 
     public Tile playerPosition;
 
