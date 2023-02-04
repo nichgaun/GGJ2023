@@ -62,7 +62,7 @@ public class AbilityUI : MonoBehaviour
         }
         if (GUI.Button(new Rect(300, 15, 80, 80), "Stun:Rng " + stun.maxDistance)) {
             //Stun Function
-            stun.OnClick();
+            // stun.OnClick();
         }
         GUILayout.EndHorizontal();
     }
