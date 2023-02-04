@@ -8,11 +8,15 @@ public class Health : MonoBehaviour
     public int maxHealth = 100;
     public int currentHealth = 100;
 
-    public Slider HealthBar;
+    [SerializeField] Slider healthBar; //set in editor
 
     public void Damage(int damage) {
         currentHealth -= damage;
-        HealthBar.value = (float)currentHealth/maxHealth;
+
+        if (healthBar != null)
+        {
+            healthBar.value = (float)currentHealth / maxHealth;
+        }
 
         if (currentHealth <= 0) {
              //do  a kill

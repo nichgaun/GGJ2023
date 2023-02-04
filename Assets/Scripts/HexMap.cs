@@ -37,10 +37,14 @@ public class HexMap : MonoBehaviour {
                 map[i].Add(tile);
             }
         }
+
+        Tile goalTile = GetTile(new Vector2Int(Random.Range(map.Count-3, map.Count), Random.Range(map.Count-3, map.Count)));
+        goalTile.ChangeColor(Color.green);
+        goalTile.isGoal = true;
     }
 
     public Tile GetRandomTile () {
-        return GetTile(new Vector2Int (Random.Range(0, width), Random.Range(0, height)));
+        return GetTile(new Vector2Int (Random.Range((int)Mathf.Round(width/2), width), Random.Range((int)Mathf.Round(height/2), height)));
     }
 
     int AxialDistance (Vector2Int a, Vector2Int b) {
@@ -224,10 +228,6 @@ public class HexMap : MonoBehaviour {
 
     public bool LineOfSight(Tile position, Tile target) {
         List<Tile> path = FindPath(position, target);
-
-        foreach (Tile tile in path) {
-            Debug.Log("Position: "+tile.x+", "+tile.y);
-        }
 
         if (path.Count <= 2) {
             return true;

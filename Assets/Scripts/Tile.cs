@@ -10,6 +10,7 @@ public class Tile : MonoBehaviour {
     Color color = Color.white;
     public HexMap map;
     public bool isTrapped = false;
+    public bool isGoal = false;
 
     //static is cringe
 
