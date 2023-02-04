@@ -12,7 +12,8 @@ public enum AbilityType {
     Stun,
     Root,
     Move,
-    Trap
+    Trap,
+    Poop,
 }
 
 public class Ability {
@@ -21,10 +22,11 @@ public class Ability {
     public int maxDistance = 5;
     private int maxMove = 2;
     public int moveRemaining = 2;
+    private bool needClick = true;
 
     public bool used = false;
-    public Effect effect;
-    public Condition condition;
+    public Effect effect = DefaultEffect;
+    public Condition condition = DefaultCondition;
     public Description description = DefaultDescribe;
     public Used exhausted = DefaultExhaust;
     AbilityType type;
@@ -47,11 +49,17 @@ public class Ability {
         a.condition = InRange;
     }
 
+    static void InitPoop (Ability a) {
+        a.effect = Poop;
+        a.needClick = false;
+    }
+
     Dictionary<AbilityType, Initializer> AbilityInitializers = new Dictionary<AbilityType, Initializer> {
         {AbilityType.Stun, InitStun},
         {AbilityType.Move, InitMove},
         {AbilityType.Root, InitRoot},
         {AbilityType.Trap, InitTrap},
+        {AbilityType.Poop, InitPoop},
     };
 
     public void Initialize (AbilityType type) {
@@ -66,7 +74,11 @@ public class Ability {
 
     //nick is based
     public void OnClick () {
-        gameManager.SubscribeToOnTileClick(Execute);
+        if (needClick)
+            gameManager.SubscribeToOnTileClick(Execute);
+        else {
+            Execute(null);
+        }
     }
 
     public void Turn () {
@@ -104,6 +116,14 @@ public class Ability {
         return HasEnemy(obj, a) && InRange(obj, a);
     }
 
+    static bool DefaultCondition (GameObject obj, Ability a) {
+        return true;
+    }
+    
+    static void DefaultEffect (GameObject obj, Ability a) {
+        Debug.Log("default!");
+    }
+
     static void Stun (GameObject obj, Ability a) {
         Tile tile = obj.GetComponent<Tile>();
         var enemy = Enemy.EnemyLocations[tile];
@@ -122,6 +142,11 @@ public class Ability {
         a.moveRemaining -= distance;
         a.gameManager.GetPlayer().transform.SetParent(tile.transform, false);
         a.gameManager.playerPosition = tile;
+    }
+
+    // Effect
+    static void Poop (GameObject obj, Ability a) {
+        Debug.Log("im pooping");
     }
 
     static bool DefaultExhaust (Ability a) {
