@@ -13,6 +13,8 @@ public class Enemy : MonoBehaviour {
     public bool stunned = false;
     Renderer renderer;
     RangedAttack attack;
+    [SerializeField] GameObject stunPrefab;
+    GameObject stunImage;
 
     public static Dictionary<Tile, Enemy> EnemyLocations = new Dictionary<Tile, Enemy>();
 
@@ -21,6 +23,13 @@ public class Enemy : MonoBehaviour {
         map.AddEnemy(this);
         renderer = GetComponent<Renderer>();
         attack = gameObject.GetComponent<RangedAttack>();
+
+        Canvas canvas = GameObject.FindObjectOfType<Canvas>();
+
+        stunImage = Instantiate(stunPrefab);
+        stunImage.transform.SetParent(canvas.transform, false);
+        stunImage.transform.localScale = new Vector3(3.5f,3.5f,3.5f);
+        stunImage.SetActive(false);
 
         if (position == null) {
             SetPosition(map.GetRandomTile());
@@ -68,6 +77,14 @@ public class Enemy : MonoBehaviour {
     public void Stun() {
         stunned = true;
         SetColor();
+
+        StartCoroutine(ShowStun());
+    }
+
+    IEnumerator ShowStun() {
+        stunImage.SetActive(true);
+        yield return new WaitForSeconds(1);
+        stunImage.SetActive(false);
     }
 
     private void Update() {
