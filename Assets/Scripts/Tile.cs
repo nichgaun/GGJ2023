@@ -35,9 +35,15 @@ public class Tile : MonoBehaviour {
     }
 
     private void OnMouseDown() {
-        // passable = !passable;
-        color = passable ? Color.white : Color.gray;
         renderer.material.color = color;
         map.SetTileToPathFind(this);
+    }
+
+    private void Update() {
+        if (Input.GetMouseButtonDown(1) && selected) {
+            passable = !passable;
+            color = passable ? Color.white : Color.gray;
+            renderer.material.color = color;
+        }
     }
 }
