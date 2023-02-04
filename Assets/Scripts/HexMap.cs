@@ -33,7 +33,7 @@ public class HexMap : MonoBehaviour {
         }
     }
 
-    int axial_distance (Vector2Int a, Vector2Int b) {
+    int AxialDistance (Vector2Int a, Vector2Int b) {
         return (Mathf.Abs(a.x - b.x) 
             + Mathf.Abs(a.x + a.y - b.x - b.y)
             + Mathf.Abs(a.y - b.y)) / 2;
@@ -48,7 +48,7 @@ public class HexMap : MonoBehaviour {
     public int GetDistance (Tile a, Tile b) {
         var ac = ToAxial(a);
         var bc = ToAxial(b);
-        return axial_distance(ac, bc);
+        return AxialDistance(ac, bc);
     }
 
     public Tile GetTile (Vector2Int coordinate) {
