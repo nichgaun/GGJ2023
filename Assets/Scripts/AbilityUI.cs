@@ -60,10 +60,10 @@ public class AbilityUI : MonoBehaviour
             //Trap Function
             trap.OnClick();
         }
-        if (GUI.Button(new Rect(300, 15, 80, 80), "Stun:Rng " + stun.maxDistance)) {
-            //Stun Function
-            // stun.OnClick();
-        }
+        // if (GUI.Button(new Rect(300, 15, 80, 80), "Stun:Rng " + stun.maxDistance)) {
+        //     //Stun Function
+        //     // stun.OnClick();
+        // }
         GUILayout.EndHorizontal();
     }
 
