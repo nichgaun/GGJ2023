@@ -11,6 +11,12 @@ public class HexMap : MonoBehaviour {
     float tileWidth, tileHeight; 
     [SerializeField] GameObject player;
 
+    List<Enemy> enemies = new List<Enemy>();
+
+    public void AddEnemy (Enemy e) {
+        enemies.Add(e);
+    }
+
     private void Awake () {
         tileWidth = Mathf.Sqrt(3) * tileSize;
         tileHeight = 3/2 * tileSize;
@@ -31,6 +37,10 @@ public class HexMap : MonoBehaviour {
                 map[i].Add(tile);
             }
         }
+    }
+
+    public Tile GetRandomTile () {
+        return GetTile(new Vector2Int (Random.Range(0, width), Random.Range(0, height)));
     }
 
     int AxialDistance (Vector2Int a, Vector2Int b) {
@@ -89,6 +99,10 @@ public class HexMap : MonoBehaviour {
 
     List<Tile> finders = new List<Tile>(), path = new List<Tile>();
     public void SetTileToPathFind (Tile tile) {
+        if (enemies.Count > 0) {
+            enemies[0].Seek(tile);
+        }
+
         finders.Add(tile);
         if (finders.Count >= 2) {
             int c = finders.Count;
@@ -144,7 +158,5 @@ public class HexMap : MonoBehaviour {
             }
         }
         return null;
-    }
-
-    
+    }    
 }
