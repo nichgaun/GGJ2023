@@ -18,6 +18,9 @@ public class Tile : MonoBehaviour {
 
     private void OnMouseOver() {
         renderer.material.color = Color.cyan;
-        Debug.Log("moused over x=" + x + " y= " + y);
+    }
+
+    private void OnMouseExit() {
+        renderer.material.color = Color.white;
     }
 }
