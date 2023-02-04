@@ -49,7 +49,7 @@ public class Enemy : MonoBehaviour {
                 break;
 
             SetPosition(tile);
-            if (!tile.passable) // is trap
+            if (tile.isTrapped) // is trap
                 break;
         }
     }
