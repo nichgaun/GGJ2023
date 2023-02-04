@@ -59,13 +59,69 @@ public class HexMap : MonoBehaviour {
         var col = hex.x + (hex.y - (hex.y&1)) / 2;
         var row = hex.y;
         return GetTile(new Vector2Int(col, row));
-
     }
 
     public int GetDistance (Tile a, Tile b) {
         var ac = ToAxial(a);
         var bc = ToAxial(b);
         return AxialDistance(ac, bc);
+    }
+
+    Vector3 CubeLerp (Vector3Int a, Vector3Int b, float t) {
+        return new Vector3 (
+            Mathf.Lerp(a.x, b.x, t),
+            Mathf.Lerp(a.y, b.y, t),
+            Mathf.Lerp(a.z, b.z, t)
+        );
+    }
+
+    Vector3Int CubeRound (Vector3 frac) {
+        int q = Mathf.RoundToInt(frac.x);
+        int r = Mathf.RoundToInt(frac.y);
+        int s = Mathf.RoundToInt(frac.z);
+
+        var q_diff = Mathf.Abs(q - frac.x);
+        var r_diff = Mathf.Abs(r - frac.y);
+        var s_diff = Mathf.Abs(s - frac.z);
+
+        if (q_diff > r_diff && q_diff > s_diff)
+            q = -r-s;
+        else if (r_diff > s_diff)
+            r = -q-s;
+        else
+            s = -q-r;
+
+        return new Vector3Int(q, r, s);
+    }
+
+    Vector2Int CubeToAxial (Vector3Int cube) {
+        var q = cube.x;
+        var r = cube.y;
+        return new Vector2Int(q, r);
+    }
+
+    Vector3Int AxialToCube (Vector2Int hex) {
+        var q = hex.x;
+        var r = hex.y;
+        var s = -q-r;
+        return new Vector3Int(q, r, s);
+    }
+
+    Tile FromCube (Vector3Int cube) {
+        return FromAxial(CubeToAxial(cube));
+    }
+
+    Vector3Int ToCube (Tile tile) {
+        return AxialToCube(ToAxial(tile));
+    }
+
+    List<Tile> LineDraw (Tile a, Tile b) {
+        int N = GetDistance(a, b);
+        List<Tile> results = new List<Tile>();
+        for (int i = 0; i < N; i++) {
+            results.Add(FromCube(CubeRound(CubeLerp(ToCube(a), ToCube(b), 1f/(float)N*(float)i))));
+        }
+        return results;
     }
 
     public Tile GetTile (Vector2Int hex) {
@@ -106,7 +162,13 @@ public class HexMap : MonoBehaviour {
         finders.Add(tile);
         if (finders.Count >= 2) {
             int c = finders.Count;
-            path = FindPath(finders[c-2], finders[c-1]);
+            // path = FindPath(finders[c-2], finders[c-1]);
+            path = LineDraw(finders[c-2], finders[c-1]);
+            Debug.Log("path.Count=" + path.Count);
+            foreach (Tile current in path) {
+                Debug.Log("current="+current);
+                current.ChangeColor(Color.red);
+            }
         }
     }
 
