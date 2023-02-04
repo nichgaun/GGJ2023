@@ -8,8 +8,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject hexMap;
     [SerializeField] GameObject player;
 
-    private bool hasSubscriber;
-
     public Tile playerPosition;
 
     System.Action <GameObject> onClickCallback = (GameObject g)=>{};
@@ -26,18 +24,12 @@ public class GameManager : MonoBehaviour
     }
 
     public void SubscribeToOnTileClick(Action<GameObject> action) {
-        if (!hasSubscriber) {
-            onClickCallback+=action;
-            hasSubscriber = true;
-        }    
+        onClickCallback = (GameObject g)=>{};
+        onClickCallback+=action;
     }
 
     public void UnsubscribeToOnTileClick(Action<GameObject> action) {
-        int listSize = onClickCallback.GetInvocationList().Length;
         onClickCallback-=action;
-        if (onClickCallback.GetInvocationList().Length < listSize) {
-            hasSubscriber = false;
-        }
         
     }
 

@@ -36,24 +36,28 @@ public class AbilityUI : MonoBehaviour
     private void OnGUI() {
         GUI.skin.font = font;
         ButtonStyle = GUI.skin.button;
-        ButtonStyle.normal.background = buttonTexture;
         
         if (showUI) {
-            WindowRect = GUI.Window(1, WindowRect, AbilityMenu, "Abilties", ButtonStyle);
+            WindowRect = GUI.Window(1, WindowRect, AbilityMenu, "Abilties");
         }
     }
 
     private void AbilityMenu(int id) {
         Movement movement = gameManager.GetPlayer().GetComponent<Movement>();
+        Trap trap = gameManager.GetPlayer().GetComponent<Trap>();
         GUILayout.BeginHorizontal();
         GUI.enabled = movement.moveRemaining > 0;
-        if (GUI.Button(new Rect(15,15,80,80), "Move " + movement.moveRemaining, ButtonStyle)) {
+        if (GUI.Button(new Rect(15,15,80,80), "Move " + movement.moveRemaining)) {
             //Move Function
             movement.OnClick();
         }
         GUI.enabled = true;
         if (GUI.Button(new Rect(110, 15, 80, 80), "Root")) {
             //Root Function
+        }
+        if (GUI.Button(new Rect(205, 15, 80, 80), "Trap:Rng " + trap.maxDistance)) {
+            //Trap Function
+            trap.OnClick();
         }
         GUILayout.EndHorizontal();
     }

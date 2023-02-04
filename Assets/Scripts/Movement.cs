@@ -36,5 +36,7 @@ public class Movement : MonoBehaviour
         gameManager.GetPlayer().transform.SetParent(tile.transform, false);
         gameManager.playerPosition = tile;
 
+        gameManager.UnsubscribeToOnTileClick(Move);
+
     }
 }

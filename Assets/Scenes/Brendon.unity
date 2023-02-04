@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 124881597}
   - component: {fileID: 124881598}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: AbilityUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -172,6 +172,8 @@ MonoBehaviour:
   LOGO: {fileID: 0}
   DragWindow: 0
   showUI: 0
+  font: {fileID: 12800000, guid: c46981b990f0bc94f9c4822ad772526e, type: 3}
+  buttonTexture: {fileID: 2800000, guid: 8d1e6b4c358c6d44ebff2aa9d46b1940, type: 3}
 --- !u!1 &582755953
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,6 +273,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hexMap: {fileID: 1112806097}
   player: {fileID: 2144337949}
+  playerPosition: {fileID: 0}
 --- !u!1 &1055666066
 GameObject:
   m_ObjectHideFlags: 0
@@ -443,6 +446,7 @@ GameObject:
   - component: {fileID: 2144337952}
   - component: {fileID: 2144337951}
   - component: {fileID: 2144337950}
+  - component: {fileID: 2144337954}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -529,3 +533,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2144337954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2144337949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 363e7a4fd47146144827e1cdc476bac7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveRemaining: 2
