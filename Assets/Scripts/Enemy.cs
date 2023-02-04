@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour {
     public bool stunned = false;
     Renderer renderer;
 
-    static Dictionary<Tile, Enemy> EnemyLocations = new Dictionary<Tile, Enemy>();
+    public static Dictionary<Tile, Enemy> EnemyLocations = new Dictionary<Tile, Enemy>();
 
     private void Start () {
         map = GameObject.Find("HexMap").GetComponent<HexMap>();

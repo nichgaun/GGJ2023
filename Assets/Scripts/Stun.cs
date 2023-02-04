@@ -2,21 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stun : MonoBehaviour
-{
+public class Stun : MonoBehaviour {
     private GameManager gameManager;
     private HexMap hexMap;
-    public int maxDistance = 3;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public int maxDistance = 5;
+    public GameObject trapPrefab;
+    
+    private void Start () {
+        gameManager = Camera.main.GetComponent<GameManager>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    //nick is cringe
+    public void OnClick () {
+        gameManager.SubscribeToOnTileClick(StunEnemy);
     }
+
+    public void StunEnemy (GameObject obj) {
+        Tile tile = obj.GetComponent<Tile>();
+
+        int distance = tile.map.GetDistance(gameManager.playerPosition, tile);
+
+        if (distance > maxDistance) {
+            return;    
+        }
+
+        if (Enemy.EnemyLocations.ContainsKey(tile)) {
+            var enemy = Enemy.EnemyLocations[tile];
+            enemy.Stun();
+        }
+
+        gameManager.UnsubscribeToOnTileClick(StunEnemy);
+    }
+
 }
