@@ -44,7 +44,7 @@ public class HexMap : MonoBehaviour {
     }
 
     public Tile GetRandomTile () {
-        return GetTile(new Vector2Int (Random.Range(0, width), Random.Range(0, height)));
+        return GetTile(new Vector2Int (Random.Range((int)Mathf.Round(width/2), width), Random.Range((int)Mathf.Round(height/2), height)));
     }
 
     int AxialDistance (Vector2Int a, Vector2Int b) {
