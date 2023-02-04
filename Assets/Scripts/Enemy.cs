@@ -13,6 +13,8 @@ public class Enemy : MonoBehaviour {
     public bool stunned = false;
     Renderer renderer;
 
+    static Dictionary<Tile, Enemy> EnemyLocations = new Dictionary<Tile, Enemy>();
+
     private void Start () {
         map = GameObject.Find("HexMap").GetComponent<HexMap>();
         map.AddEnemy(this);
@@ -40,8 +42,10 @@ public class Enemy : MonoBehaviour {
     void SetPosition (Tile tile) {
         if (tile is null)
             return;
-
+        
+        EnemyLocations.Remove(position);
         position = tile;
+        EnemyLocations[position] = this;
         transform.position = position.transform.position + new Vector3(0f, 0f, 0.75f);
     }
 
@@ -53,7 +57,7 @@ public class Enemy : MonoBehaviour {
                 break;
 
             SetPosition(tile);
-            if (!tile.passable) // is trap
+            if (tile.isTrapped) // is trap
                 break;
         }
     }
