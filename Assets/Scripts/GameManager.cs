@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour {
 
     public List<Enemy> enemies = new List<Enemy>();
 
+    public int nextSceneIndex;
+
     public void AddEnemy (Enemy e) {
         enemies.Add(e);
     }

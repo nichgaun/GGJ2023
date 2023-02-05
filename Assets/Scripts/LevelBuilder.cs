@@ -19,9 +19,13 @@ public class LevelBuilder : MonoBehaviour
     [SerializeField] GameObject meleeMonsterPrefab;
     [SerializeField] GameObject impassableTerrainPrefab;
     [SerializeField] HexMap hexMap;
+    [SerializeField] int nextSceneIndex;
+    GameManager gameManager;
 
 
     public void Start() {
+        gameManager = Camera.main.GetComponent<GameManager>();
+        gameManager.nextSceneIndex = nextSceneIndex;
         GeneratePlayer(playerCoords);
         GenerateMeleeEnemies(meleeBaddieCoords);
         GenerateRangedEnemies(rangedBaddieCoords);
