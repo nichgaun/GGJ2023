@@ -5,6 +5,8 @@ using System.Linq;
 
 public class HexMap : MonoBehaviour {
     List<List<Tile>> map = new List<List<Tile>>();
+    //doing this because it's 5am and I'm lazy
+    public List<Tile> allTiles = new List<Tile>();
     int width = 10, height = 10;
     public GameObject tilePrefab;
     float tileSize = 2f;
@@ -38,6 +40,7 @@ public class HexMap : MonoBehaviour {
 
                 tile.Initialize(i, j, this);
                 map[i].Add(tile);
+                allTiles.Add(tile);
             }
         }
     }

@@ -104,6 +104,7 @@ MonoBehaviour:
   map: {fileID: 0}
   isTrapped: 0
   isGoal: 0
+  hexHighlightPrefab: {fileID: 699299135979160368, guid: b1c5ab47b70d2304794da6d2e1640358, type: 3}
 --- !u!64 &8929854905426975454
 MeshCollider:
   m_ObjectHideFlags: 0

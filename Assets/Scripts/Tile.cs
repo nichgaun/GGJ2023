@@ -12,6 +12,9 @@ public class Tile : MonoBehaviour {
     public bool isTrapped = false;
     public bool isGoal = false;
 
+    [SerializeField] GameObject hexHighlightPrefab;
+    public GameObject hexHighlight;
+
     //static is cringe
     public bool Occupied () {
         if (gameManager.playerPosition == this)
@@ -39,6 +42,9 @@ public class Tile : MonoBehaviour {
 
     private void Start() {
         gameManager = Camera.main.GetComponent<GameManager>();
+        hexHighlight = Instantiate(hexHighlightPrefab);
+        hexHighlight.GetComponent<Highlight>().SetPosition(this);
+        hexHighlight.SetActive(false);
     }
 
     public void ChangeColor (Color c) {

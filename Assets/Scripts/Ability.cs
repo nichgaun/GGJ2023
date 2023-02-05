@@ -206,7 +206,7 @@ public class Ability {
         List<Tile> moveTiles = tile.map.GetTilesInRange(tile, a.moveRemaining);
 
         foreach (Tile validTile in moveTiles) {
-            validTile.ChangeColor(Color.green);
+            validTile.hexHighlight.SetActive(true);
         }
     }
 }

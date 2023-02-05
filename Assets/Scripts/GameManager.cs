@@ -28,9 +28,10 @@ public class GameManager : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player");
         hexMapObj = hexMap.GetComponent<HexMap>();
     }
-    
+
     public void ExecuteOnClick(GameObject obj) {
         onClickCallback(obj);
+        ClearTileHighlights();
     }
 
     public void SubscribeToOnTileClick(Action<GameObject> action) {
@@ -41,6 +42,12 @@ public class GameManager : MonoBehaviour {
     public void UnsubscribeToOnTileClick(Action<GameObject> action) {
         onClickCallback-=action;
         
+    }
+
+    public void ClearTileHighlights() {
+        foreach (Tile tile in hexMapObj.allTiles) {
+            tile.hexHighlight.SetActive(false);
+        }
     }
 
     public delegate void Animation ();
