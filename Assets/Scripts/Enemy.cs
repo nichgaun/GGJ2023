@@ -84,7 +84,7 @@ public class Enemy : MonoBehaviour {
 
             for (int i = 0; i < path.Count-1 && i < speed; i++) {
                 if (gameObject.GetComponent<RangedAttack>() != null && gameObject.GetComponent<RangedAttack>().CheckShot()) {
-                    Debug.Log("hey");
+                    // Debug.Log("hey");
                     break;
                 }
 

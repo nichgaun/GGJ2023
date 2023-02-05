@@ -21,9 +21,10 @@ public class HexMap : MonoBehaviour {
 
         goalTile.isGoal = true;
         goalIndicator = Instantiate(goalHex, goalTile.GetPosition(), Quaternion.identity);
-        goalIndicator.transform.localScale += 5*Vector3.up;
+        goalIndicator.transform.localScale += 5*Vector3.up + new Vector3(1f,0f,1f);
+        goalIndicator.transform.position += Vector3.up*(-0.3f);
         foreach (var renderer in goalIndicator.GetComponentsInChildren<Renderer>()) {
-            
+            renderer.material.color *= Color.green;
         }
     }
 
