@@ -52,13 +52,16 @@ public class Tile : MonoBehaviour {
 
     private void OnMouseOver() {
         selected = true;
+        renderer.material.color = Color.cyan*color;
     }
 
     private void OnMouseExit() {
         selected = false;
+        renderer.material.color = color;
     }
 
     private void OnMouseDown() {
+        renderer.material.color = color;
         map.SetTileToPathFind(this);
     }
 
@@ -66,6 +69,7 @@ public class Tile : MonoBehaviour {
         if (Input.GetMouseButtonDown(1) && selected) {
             passable = !passable;
             color = passable ? Color.white : Color.gray;
+            renderer.material.color = color;
         }
     }
 

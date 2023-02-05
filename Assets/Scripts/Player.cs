@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour {
     public GameManager gameManager;
     // Start is called before the first frame update
-    void Start () {
+    void Awake () {
         gameManager = Camera.main.GetComponent<GameManager>();
     }
 
