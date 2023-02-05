@@ -270,6 +270,7 @@ GameObject:
   - component: {fileID: 582755955}
   - component: {fileID: 582755954}
   - component: {fileID: 582755957}
+  - component: {fileID: 582755958}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -361,6 +362,18 @@ MonoBehaviour:
   hexMapObj: {fileID: 0}
   enemies: []
   nextSceneIndex: 0
+--- !u!114 &582755958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 582755953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc470a8b57103314ebcee939408b1ad2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &619433648
 GameObject:
   m_ObjectHideFlags: 0
@@ -1191,6 +1204,22 @@ PrefabInstance:
       propertyPath: hexMap
       value: 
       objectReference: {fileID: 1112806098}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: goalCoord.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: goalCoord.y
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: dimensions.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: dimensions.y
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
       propertyPath: playerCoords.x
       value: 0
