@@ -99,8 +99,10 @@ public class Ability {
     }
 
     public void Turn () {
-        cooldown--;
-        if (cooldown <= 0) {
+        if (cooldown > 0) {
+            cooldown--;
+        }
+        if (cooldown == 0) {
             used = false;
         }
         moveRemaining = maxMove;
@@ -214,7 +216,7 @@ public class Ability {
     }
 
     static string DefaultDescribe (Ability a) {
-        return a.type.ToString();
+        return a.cooldown == 0 ? a.type.ToString() : a.type.ToString() + " ("+a.cooldown+")";
     }
 
     static void DefaultHighlighter (Ability a) {

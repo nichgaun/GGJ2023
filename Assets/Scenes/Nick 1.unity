@@ -356,10 +356,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hexMap: {fileID: 1112806097}
-  trapPrefab: {fileID: 4184367267477377178, guid: 8a878f6a0f799304cadc8dd7dc2c6513, type: 3}
+  trapPrefab: {fileID: 5024868666050232173, guid: 8a878f6a0f799304cadc8dd7dc2c6513, type: 3}
   playerPosition: {fileID: 0}
   hexMapObj: {fileID: 0}
   enemies: []
+  nextSceneIndex: 0
 --- !u!1 &619433648
 GameObject:
   m_ObjectHideFlags: 0
