@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour {
     HexMap map;
     public Tile position;
     List<Tile> path;
-    int speed = 3;
+    int speed = 3, maxSpeed = 3;
     Color color = Color.white;
     public bool stunned = false;
     public int rooted = 0;
@@ -122,6 +122,9 @@ public class Enemy : MonoBehaviour {
         rooted = 2;
         SetColor();
     }
+    public void Slow() {
+        speed = 1;
+    }
 
     private void Update() {
         // if (Input.GetKeyDown(KeyCode.Space)) {
@@ -139,9 +142,11 @@ public class Enemy : MonoBehaviour {
                 attack.AttackPlayer();
             }
         }
-        //I took away the else here bc for the same reason above
-            stunned = false;
-            rooted--;
+        stunned = false;
+        rooted--;
+        if (speed < maxSpeed) {
+            speed++;
+        }
         
         SetColor();
     }
@@ -156,7 +161,6 @@ public class Enemy : MonoBehaviour {
         else if (rooted > 0 )  {color = Color.green; }
         else                   {color = Color.white; }
         renderer.material.color = color;
-        Debug.Log("stunned:" + stunned + " rooted:" + rooted);
     }
     
 }

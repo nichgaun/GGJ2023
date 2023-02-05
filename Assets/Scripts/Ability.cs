@@ -13,6 +13,7 @@ public enum AbilityType {
     Root,
     Move,
     Trap,
+    Slow,
     Poop,
 }
 
@@ -48,6 +49,12 @@ public class Ability {
 
     }
 
+    static void InitSlow (Ability a) {
+        a.effect = Slow;
+        a.condition = RootCondition;
+
+    }
+
     static void InitTrap (Ability a) {
         a.effect = Trap;
         a.condition = InRange;
@@ -62,6 +69,7 @@ public class Ability {
         {AbilityType.Stun, InitStun},
         {AbilityType.Move, InitMove},
         {AbilityType.Root, InitRoot},
+        {AbilityType.Slow, InitSlow},
         {AbilityType.Trap, InitTrap},
         {AbilityType.Poop, InitPoop},
     };
@@ -142,6 +150,12 @@ public class Ability {
         Tile tile = obj.GetComponent<Tile>();
         var enemy = Enemy.EnemyLocations[tile];
         enemy.Root();
+    }
+
+    static void Slow (GameObject obj, Ability a) {
+        Tile tile = obj.GetComponent<Tile>();
+        var enemy = Enemy.EnemyLocations[tile];
+        enemy.Slow();
     }
 
     static void Trap (GameObject obj, Ability a) {
