@@ -9,7 +9,7 @@ public class AbilityUI : MonoBehaviour {
     public GUISkin guiSkin;
     public Texture2D background, LOGO;
     public bool DragWindow = false;
-    public bool showUI = false;
+    public bool showUI = true;
     [SerializeField] Font font;
 
     private string clicked = "";
@@ -52,9 +52,8 @@ public class AbilityUI : MonoBehaviour {
         GUI.skin.font = font;
         ButtonStyle = GUI.skin.button;
         
-        if (showUI) {
-            WindowRect = GUI.Window(1, WindowRect, AbilityMenu, "Abilties");
-        }
+        
+        WindowRect = GUI.Window(1, WindowRect, AbilityMenu, "Abilties");
     }
 
     private void AbilityMenu(int id) {

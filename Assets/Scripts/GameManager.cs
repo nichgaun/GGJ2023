@@ -5,7 +5,7 @@ using System;
 
 public class GameManager : MonoBehaviour {
     [SerializeField] public GameObject hexMap;
-    [SerializeField] GameObject player;
+    GameObject player;
     [SerializeField] public GameObject trapPrefab;
     [SerializeField] GameObject meleePrefab;
     [SerializeField] GameObject rangedPrefab;
@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void Start() {
+        player = GameObject.FindGameObjectWithTag("Player");
         hexMapObj = hexMap.GetComponent<HexMap>();
         Tile startTile = hexMapObj.GetTile(new Vector2Int(0,0));
         player.GetComponent<Player>().SetPosition(startTile);
