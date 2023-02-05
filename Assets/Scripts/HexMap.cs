@@ -231,8 +231,7 @@ public class HexMap : MonoBehaviour {
 
         if (path.Count <= 2) {
             return true;
-        } 
-
+        }
 
         Vector2Int diff = ToAxial(path[0]) - ToAxial(path[1]);
         Debug.Log(diff);
