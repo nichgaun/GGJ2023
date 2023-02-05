@@ -16,8 +16,8 @@ public class HexMap : MonoBehaviour {
     public GameObject goalHex;
     GameObject goalIndicator;
 
-    private void SetupGoal () {
-        Tile goalTile = GetTile(new Vector2Int(Random.Range(map.Count-3, map.Count), Random.Range(map.Count-3, map.Count)));
+    public void SetupGoal (Vector2Int spot) {
+        Tile goalTile = GetTile(spot); //(new Vector2Int(Random.Range(map.Count-3, map.Count), Random.Range(map.Count-3, map.Count)));
 
         goalTile.isGoal = true;
         goalIndicator = Instantiate(goalHex, goalTile.GetPosition(), Quaternion.identity);
@@ -33,7 +33,7 @@ public class HexMap : MonoBehaviour {
         tileHeight = 3/2 * tileSize;
 
         GenerateHexMap();
-        SetupGoal();
+        // SetupGoal();
 
     }
 
