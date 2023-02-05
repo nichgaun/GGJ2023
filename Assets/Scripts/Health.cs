@@ -34,10 +34,10 @@ public class Health : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            Damage(10);
-        }
+        // if (Input.GetKeyDown(KeyCode.F))
+        // {
+        //     Damage(10);
+        // }
     }
 
     IEnumerator SendToMainMenuAfterTime()

@@ -11,6 +11,8 @@ public class RangedAttack : MonoBehaviour
     HexMap hexMap;
     Enemy enemy;
 
+    [SerializeField] GameObject projectilePrefab; //set in editor
+
     private void Start() {
         gameManager = Camera.main.GetComponent<GameManager>();
         hexMap = gameManager.hexMap.GetComponent<HexMap>();
@@ -39,5 +41,8 @@ public class RangedAttack : MonoBehaviour
 
     public void AttackPlayer() {
         player.GetComponent<Health>().Damage(damage);
+
+        GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+        projectile.GetComponent<Projectile>().Init(20f, player.transform.position);
     }
 }
