@@ -9,7 +9,7 @@ public class AbilityUI : MonoBehaviour {
     public GUISkin guiSkin;
     public Texture2D background, LOGO;
     public bool DragWindow = false;
-    public bool showUI = false;
+    public bool showUI = true;
     [SerializeField] Font font;
 
     private string clicked = "";
