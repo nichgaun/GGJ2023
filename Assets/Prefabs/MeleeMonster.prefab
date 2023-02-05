@@ -166,6 +166,8 @@ MonoBehaviour:
   stunned: 0
   rooted: 0
   stunPrefab: {fileID: 685833286177168177, guid: ef5e3203c6501ba498ce7abb343dd932, type: 3}
+  stunParticlesPrefab: {fileID: 5708648297008165007, guid: 10736fa4e2834634bb034c44d903e735, type: 3}
+  slowParticlesPrefab: {fileID: 4274221957279903819, guid: bffe11bcdec477646ac816813ba1bf38, type: 3}
 --- !u!114 &6878813325210762628
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -68,7 +68,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 100
   healthBar: {fileID: 0}
-  gameOverUI: {fileID: 0}
+  gameOverUIPrefab: {fileID: 6037783802940820748, guid: 67c4346c5a1eaff4aae023b9e69f2c94, type: 3}
   timeToWaitAfterDeath: 3
 --- !u!114 &7584554589321118234
 MonoBehaviour:
