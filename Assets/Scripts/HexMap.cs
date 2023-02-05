@@ -16,9 +16,17 @@ public class HexMap : MonoBehaviour {
         tileWidth = Mathf.Sqrt(3) * tileSize;
         tileHeight = 3/2 * tileSize;
 
-        for (int i = 0; i < width; i++) {
+        GenerateHexMap();
+
+        Tile goalTile = GetTile(new Vector2Int(Random.Range(map.Count-3, map.Count), Random.Range(map.Count-3, map.Count)));
+        goalTile.ChangeColor(Color.green);
+        goalTile.isGoal = true;
+    }
+
+    private void GenerateHexMap(int x = 10, int y = 10){
+        for (int i = 0; i < x; i++) {
             map.Add(new List<Tile>());
-            for (int j = 0; j < height; j++) {
+            for (int j = 0; j < y; j++) {
                 float offset = j % 2 == 0 ? 0f : tileWidth/2f;
 
                 var tile = Instantiate(
@@ -32,10 +40,6 @@ public class HexMap : MonoBehaviour {
                 map[i].Add(tile);
             }
         }
-
-        Tile goalTile = GetTile(new Vector2Int(Random.Range(map.Count-3, map.Count), Random.Range(map.Count-3, map.Count)));
-        goalTile.ChangeColor(Color.green);
-        goalTile.isGoal = true;
     }
 
     public Tile GetRandomTile () {
