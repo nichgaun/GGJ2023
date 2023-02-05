@@ -91,6 +91,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Eyebrow
       objectReference: {fileID: 0}
+    - target: {fileID: -5477749408508380018, guid: 2363e99258f92fa4abc8a163bd26d574, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.6551404
+      objectReference: {fileID: 0}
+    - target: {fileID: -5477749408508380018, guid: 2363e99258f92fa4abc8a163bd26d574, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.75550723
+      objectReference: {fileID: 0}
+    - target: {fileID: -5477749408508380018, guid: 2363e99258f92fa4abc8a163bd26d574, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 98.13901
+      objectReference: {fileID: 0}
     - target: {fileID: -3457638151550441521, guid: 2363e99258f92fa4abc8a163bd26d574, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
