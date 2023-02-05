@@ -52,9 +52,8 @@ public class AbilityUI : MonoBehaviour {
         GUI.skin.font = font;
         ButtonStyle = GUI.skin.button;
         
-        if (showUI) {
-            WindowRect = GUI.Window(1, WindowRect, AbilityMenu, "Abilties");
-        }
+        
+        WindowRect = GUI.Window(1, WindowRect, AbilityMenu, "Abilties");
     }
 
     private void AbilityMenu(int id) {
