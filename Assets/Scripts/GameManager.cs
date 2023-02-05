@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour {
         hexMapObj = hexMap.GetComponent<HexMap>();
         Tile startTile = hexMapObj.GetTile(new Vector2Int(0,0));
         player.GetComponent<Player>().SetPosition(startTile);
-        GenerateEnemies(0, 3);
+        GenerateEnemies(2, 2);
     }
 
     public void ExecuteOnClick(GameObject obj) {

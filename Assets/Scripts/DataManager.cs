@@ -6,7 +6,7 @@ using UnityEngine;
 static class DataManager
 {
     public static float Volume { get { return volume; } set { volume = value; onVolumeChange(value); } }
-    static float volume = 0.4f;
+    static float volume = 0.2f;
     static Action<float> onVolumeChange = (float f) => { };
 
     public static void RegisterVolume(Action<float> action)
