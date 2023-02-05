@@ -133,7 +133,6 @@ public class Enemy : MonoBehaviour {
     }
 
     private void Turn () {
-        //Wanted to separate these bc i didn't know how to cascade them right
         if (!stunned && rooted <= 0) {
             Move();
         }
@@ -142,7 +141,6 @@ public class Enemy : MonoBehaviour {
                 attack.AttackPlayer();
             }
         }
-        //I took away the else here bc for the same reason above
         stunned = false;
         rooted--;
         if (speed < maxSpeed) {
@@ -162,7 +160,6 @@ public class Enemy : MonoBehaviour {
         else if (rooted > 0 )  {color = Color.green; }
         else                   {color = Color.white; }
         renderer.material.color = color;
-        Debug.Log("stunned:" + stunned + " rooted:" + rooted);
     }
     
 }
