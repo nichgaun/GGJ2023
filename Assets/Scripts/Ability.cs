@@ -214,7 +214,7 @@ public class Ability {
     }
 
     static string DefaultDescribe (Ability a) {
-        return a.type.ToString();
+        return a.cooldown == 0 ? a.type.ToString() : a.type.ToString() + " ("+a.cooldown+")";
     }
 
     static void DefaultHighlighter (Ability a) {
