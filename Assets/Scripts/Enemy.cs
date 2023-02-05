@@ -58,7 +58,7 @@ public class Enemy : MonoBehaviour {
             EnemyLocations.Remove(position);
         position = tile;
         EnemyLocations[position] = this;
-        transform.position = position.transform.position + new Vector3(0f, 0f, 0.75f);
+        transform.position = position.transform.position + new Vector3(0f, 1f, 0f);
     }
 
     void Move () {

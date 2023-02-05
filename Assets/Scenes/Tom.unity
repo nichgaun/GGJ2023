@@ -299,14 +299,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 520223385}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -50}
+  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
+  m_LocalPosition: {x: 12.88, y: 54.47, z: -44.12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
 --- !u!114 &520223389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,6 +321,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hexMap: {fileID: 222600813}
   player: {fileID: 1411646338}
+  trapPrefab: {fileID: 0}
+  meleePrefab: {fileID: 0}
+  rangedPrefab: {fileID: 0}
   playerPosition: {fileID: 0}
 --- !u!1001 &1411646337
 PrefabInstance:
@@ -377,7 +380,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4528923110405805641, guid: 34dfeaaa86c96e843a11fb2b4e052080, type: 3}
+    - {fileID: 582980151706136290, guid: 34dfeaaa86c96e843a11fb2b4e052080, type: 3}
+    - {fileID: 582980151706136291, guid: 34dfeaaa86c96e843a11fb2b4e052080, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 34dfeaaa86c96e843a11fb2b4e052080, type: 3}
 --- !u!1 &1411646338 stripped
 GameObject:
@@ -393,7 +399,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6502378137867417720, guid: b748652c0950e5d42b1934a3bfd7f281, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6502378137867417720, guid: b748652c0950e5d42b1934a3bfd7f281, type: 3}
       propertyPath: m_LocalPosition.x
@@ -500,5 +506,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1198723069014759453, guid: b72a2c0d7ac05ed4caf1ce273f78acea, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1411646338}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b72a2c0d7ac05ed4caf1ce273f78acea, type: 3}
