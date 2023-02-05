@@ -167,12 +167,12 @@ public class HexMap : MonoBehaviour {
         if (finders.Count >= 2) {
             int c = finders.Count;
             // path = FindPath(finders[c-2], finders[c-1]);
-            path = LineDraw(finders[c-2], finders[c-1]);
-            Debug.Log("path.Count=" + path.Count);
-            foreach (Tile current in path) {
-                Debug.Log("current="+current);
-                current.ChangeColor(Color.red);
-            }
+            // path = LineDraw(finders[c-2], finders[c-1]);
+            // Debug.Log("path.Count=" + path.Count);
+            // foreach (Tile current in path) {
+            //     Debug.Log("current="+current);
+            //     current.ChangeColor(Color.red);
+            // }
         }
     }
 
@@ -231,8 +231,7 @@ public class HexMap : MonoBehaviour {
 
         if (path.Count <= 2) {
             return true;
-        } 
-
+        }
 
         Vector2Int diff = ToAxial(path[0]) - ToAxial(path[1]);
         Debug.Log(diff);
