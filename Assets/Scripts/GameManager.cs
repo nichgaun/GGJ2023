@@ -100,7 +100,8 @@ public class GameManager : MonoBehaviour {
             sequence.Dequeue()();
         } else {
             translating = false;
-            GetManager(g).GetPlayer().GetComponent<Player>().DoneMoving();
+            if (g.GetComponent<Player>() != null)
+                g.GetComponent<Player>().DoneMoving();
         }
     }
 
