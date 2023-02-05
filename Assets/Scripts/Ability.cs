@@ -15,7 +15,6 @@ public enum AbilityType {
     Move,
     Trap,
     Slow,
-    Poop,
 }
 
 public class Ability {
@@ -54,8 +53,8 @@ public class Ability {
         a.cooldownMax = 2;
     }
 
-    static void InitPoop (Ability a) {
-        a.effect = Poop;
+    static void InitSlow (Ability a) {
+        a.effect = Slow;
         a.condition = RootCondition;
         a.cooldownMax = 1;
     }
@@ -66,16 +65,10 @@ public class Ability {
         a.cooldownMax = 3;
     }
 
-    static void InitSlow (Ability a) {
-        a.effect = Slow;
-        a.needClick = false;
-    }
-
     Dictionary<AbilityType, Initializer> AbilityInitializers = new Dictionary<AbilityType, Initializer> {
         {AbilityType.Stun, InitStun},
         {AbilityType.Move, InitMove},
         {AbilityType.Root, InitRoot},
-        {AbilityType.Poop, InitPoop},
         {AbilityType.Trap, InitTrap},
         {AbilityType.Slow, InitSlow},
     };
@@ -188,12 +181,6 @@ public class Ability {
             a.gameManager.QueueTranslation(player, path[i], path[i-1]);
         }
     }
-
-    // Effect
-    static void Poop (GameObject obj, Ability a) {
-        Debug.Log("I'm pooping");
-    }
-
     static bool DefaultExhaust (Ability a) {
         a.cooldown = a.cooldownMax;
         return true;
