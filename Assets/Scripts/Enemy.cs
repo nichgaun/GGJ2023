@@ -64,9 +64,9 @@ public class Enemy : MonoBehaviour {
 
     float duration = 1f;
     IEnumerator Translate (Tile a, Tile b) {
-        Debug.Log("a.GetPosition()=" + a.GetPosition() + " b.GetPosition()=" + b.GetPosition());
+        // Debug.Log("a.GetPosition()=" + a.GetPosition() + " b.GetPosition()=" + b.GetPosition());
         for (float t = 0f; t < 1f; t = t+Time.deltaTime/duration) {
-            transform.position = Vector3.Lerp(a.GetPosition(), b.GetPosition(), t);
+            transform.position = Vector3.Lerp(a.GetPosition(), b.GetPosition(), t) + Vector3.up;
             yield return null;
         }
         SetPosition(b);
@@ -141,6 +141,8 @@ public class Enemy : MonoBehaviour {
     }
 
     private void SetColor() {
+        return; // short circuits
+
         //do any conditions supercede the other? stunned is stronger than rooted
         if (stunned)           {color = Color.yellow;}
         else if (rooted > 0 )  {color = Color.green; }
