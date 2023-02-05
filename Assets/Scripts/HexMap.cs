@@ -159,8 +159,8 @@ public class HexMap : MonoBehaviour {
 
     List<Tile> finders = new List<Tile>(), path = new List<Tile>();
     public void SetTileToPathFind (Tile tile) {
-        if (enemies.Count > 0) {
-            enemies[0].Seek(tile);
+        foreach (var enemy in enemies) {
+            enemy.Seek(tile);
         }
 
         finders.Add(tile);
