@@ -68,6 +68,8 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 100
   healthBar: {fileID: 0}
+  gameOverUI: {fileID: 0}
+  timeToWaitAfterDeath: 3
 --- !u!114 &7584554589321118234
 MonoBehaviour:
   m_ObjectHideFlags: 0
