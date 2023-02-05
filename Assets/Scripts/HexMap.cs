@@ -28,8 +28,8 @@ public class HexMap : MonoBehaviour {
 
                 var tile = Instantiate(
                     tilePrefab, 
-                    new Vector3(i*tileWidth+offset, j*tileHeight*3f/2f, 0), 
-                    new Quaternion(0.5f,-0.5f,-0.5f,0.5f), 
+                    new Vector3(i*tileWidth+offset, 0f, j*tileHeight*3f/2f), 
+                    new Quaternion(0.707106829f,0,-0.707106829f,0), 
                     transform
                 ).GetComponent<Tile>();
 
