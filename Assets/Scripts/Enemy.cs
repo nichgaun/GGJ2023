@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour {
     int speed = 3;
     Color color = Color.white;
     public bool stunned = false;
+    public int rooted = 0;
     Renderer renderer;
     RangedAttack attack;
     [SerializeField] GameObject stunPrefab;
@@ -86,32 +87,42 @@ public class Enemy : MonoBehaviour {
         yield return new WaitForSeconds(1);
         stunImage.SetActive(false);
     }
+    
+    public void Root() {
+        rooted = 2;
+        SetColor();
+    }
 
     private void Update() {
         if (Input.GetKeyDown(KeyCode.Space)) {
             Turn();
         }
-        if (Input.GetKeyDown(KeyCode.S)) {
-            Stun();
-        }
     }
 
     private void Turn () {
-        if (!stunned) {
+        //Wanted to separate these bc i didn't know how to cascade them right
+        if (!stunned && rooted <= 0) {
             Move();
+        }
+        if (!stunned) {
             if (attack.CheckShot()) {
                 attack.AttackPlayer();
             }
         }
-        else {
+        //I took away the else here bc for the same reason above
             stunned = false;
-        }
+            rooted--;
+        
         SetColor();
     }
 
     private void SetColor() {
-        color = stunned ? Color.yellow : Color.white;
+        //do any conditions supercede the other? stunned is stronger than rooted
+        if (stunned)           {color = Color.yellow;}
+        else if (rooted > 0 )  {color = Color.green; }
+        else                   {color = Color.white; }
         renderer.material.color = color;
+        Debug.Log("stunned:" + stunned + " rooted:" + rooted);
     }
     
 }
