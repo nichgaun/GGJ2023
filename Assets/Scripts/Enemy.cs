@@ -62,15 +62,39 @@ public class Enemy : MonoBehaviour {
         transform.position = position.transform.position + new Vector3(0f, 1f, 0f);
     }
 
+    float duration = 1f;
+    IEnumerator Translate (Tile a, Tile b) {
+        Debug.Log("a.GetPosition()=" + a.GetPosition() + " b.GetPosition()=" + b.GetPosition());
+        for (float t = 0f; t < 1f; t = t+Time.deltaTime/duration) {
+            transform.position = Vector3.Lerp(a.GetPosition(), b.GetPosition(), t);
+            yield return null;
+        }
+        SetPosition(b);
+
+        if (sequence.Count > 0) {
+            sequence.Dequeue()();
+        }
+    }
+
+    public delegate void Animation ();
+
+    Queue<Animation> sequence = new Queue<Animation>();
+
     void Move () {
-        Tile tile = null;
+        Tile tile = position;
         for (int i = 0; i < speed; i++) {
-            tile = NextStep();
-            if (tile is null)
+            var nextTile = NextStep();
+            if (nextTile is null)
                 break;
 
-            SetPosition(tile);
-            if (tile.isTrapped) // is trap
+            // SetPosition(tile);
+            sequence.Enqueue(() => StartCoroutine(Translate(tile, nextTile)));
+            if (sequence.Count == 1) {
+                sequence.Dequeue()();
+            }
+
+            
+            if (nextTile.isTrapped) // is trap
                 break;
         }
     }
