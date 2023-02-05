@@ -14,6 +14,10 @@ public class Tile : MonoBehaviour {
 
     //static is cringe
 
+    public Vector3 GetPosition () {
+        return transform.position;
+    }
+
     public void Initialize (int x, int y, HexMap map) {
         this.x = x;
         this.y = y;

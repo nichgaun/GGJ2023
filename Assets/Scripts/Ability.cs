@@ -13,6 +13,7 @@ public enum AbilityType {
     Root,
     Move,
     Trap,
+    Slow,
     Poop,
 }
 
@@ -42,7 +43,17 @@ public class Ability {
         a.exhausted = Moves;
     }
 
-    static void InitRoot (Ability a) {}
+    static void InitRoot (Ability a) {
+        a.effect = Root;
+        a.condition = RootCondition;
+
+    }
+
+    static void InitSlow (Ability a) {
+        a.effect = Slow;
+        a.condition = RootCondition;
+
+    }
 
     static void InitTrap (Ability a) {
         a.effect = Trap;
@@ -58,6 +69,7 @@ public class Ability {
         {AbilityType.Stun, InitStun},
         {AbilityType.Move, InitMove},
         {AbilityType.Root, InitRoot},
+        {AbilityType.Slow, InitSlow},
         {AbilityType.Trap, InitTrap},
         {AbilityType.Poop, InitPoop},
     };
@@ -116,6 +128,10 @@ public class Ability {
         return HasEnemy(obj, a) && InRange(obj, a);
     }
 
+    static bool RootCondition (GameObject obj, Ability a) {
+        return HasEnemy(obj, a) && InRange(obj, a);
+    }
+
     static bool DefaultCondition (GameObject obj, Ability a) {
         return true;
     }
@@ -128,6 +144,18 @@ public class Ability {
         Tile tile = obj.GetComponent<Tile>();
         var enemy = Enemy.EnemyLocations[tile];
         enemy.Stun();
+    }
+
+    static void Root (GameObject obj, Ability a) {
+        Tile tile = obj.GetComponent<Tile>();
+        var enemy = Enemy.EnemyLocations[tile];
+        enemy.Root();
+    }
+
+    static void Slow (GameObject obj, Ability a) {
+        Tile tile = obj.GetComponent<Tile>();
+        var enemy = Enemy.EnemyLocations[tile];
+        enemy.Slow();
     }
 
     static void Trap (GameObject obj, Ability a) {
