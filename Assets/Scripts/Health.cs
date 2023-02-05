@@ -13,13 +13,17 @@ public class Health : MonoBehaviour
     [SerializeField] GameObject gameOverUI; //set in editor
     [SerializeField] float timeToWaitAfterDeath; //set in editor
 
-    public void Damage(int damage) {
+
+    public void Damage (int damage) {
         currentHealth -= damage;
 
-        if (healthBar != null)
-        {
-            healthBar.value = (float)currentHealth / maxHealth;
+        if (healthBar == null) {
+            healthBar = GameObject.Find("HealthBar").GetComponent<Slider>();
         }
+
+        if (healthBar != null) {
+            healthBar.value = (float)currentHealth / maxHealth;
+        } 
 
         if (currentHealth <= 0) {
             gameOverUI.SetActive(true);
