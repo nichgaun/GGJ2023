@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 1f85267acbd88f44a8cd267ccc2d392a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -99,6 +99,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x: 0
   y: 0
+  selected: 0
+  passable: 1
+  map: {fileID: 0}
+  isTrapped: 0
+  isGoal: 0
 --- !u!64 &8929854905426975454
 MeshCollider:
   m_ObjectHideFlags: 0
