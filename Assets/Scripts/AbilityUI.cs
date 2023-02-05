@@ -69,7 +69,7 @@ public class AbilityUI : MonoBehaviour {
         }
         
         
-        GUI.enabled = true;
+        GUI.enabled = !Enemy.moving;
         if (GUI.Button(new Rect(15 + 105*i,15,80,80), "Next Turn")) {
             gameManager.Turn();
         }
