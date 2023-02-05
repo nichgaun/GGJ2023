@@ -15,9 +15,10 @@ public class HexMap : MonoBehaviour {
     GameManager gameManager;
     public GameObject goalHex;
     GameObject goalIndicator;
+    public Tile goalTile;
 
     public void SetupGoal (Vector2Int spot) {
-        Tile goalTile = GetTile(spot); //(new Vector2Int(Random.Range(map.Count-3, map.Count), Random.Range(map.Count-3, map.Count)));
+        goalTile = GetTile(spot); //(new Vector2Int(Random.Range(map.Count-3, map.Count), Random.Range(map.Count-3, map.Count)));
 
         goalTile.isGoal = true;
         goalIndicator = Instantiate(goalHex, goalTile.GetPosition(), Quaternion.identity);
@@ -60,7 +61,8 @@ public class HexMap : MonoBehaviour {
     }
 
     public Tile GetRandomTile () {
-        return GetTile(new Vector2Int (Random.Range((int)Mathf.Round(width/2), width), Random.Range((int)Mathf.Round(height/2), height)));
+        // return GetTile(new Vector2Int (Random.Range((int)Mathf.Round(width/2), width), Random.Range((int)Mathf.Round(height/2), height)));
+        return GetTile(new Vector2Int(Random.Range(0,width-1), Random.Range(0,width-1)));
     }
 
     int AxialDistance (Vector2Int a, Vector2Int b) {
@@ -145,8 +147,10 @@ public class HexMap : MonoBehaviour {
     }
 
     public Tile GetTile (Vector2Int hex) {
+        Debug.Log("get tile success" + hex + " width=" + width + " height=" + height);
         if (hex.x >= width || hex.x < 0 || hex.y >= height || hex.y < 0)
             return null;
+
 
         return map[hex.x][hex.y].GetComponent<Tile>();
     }

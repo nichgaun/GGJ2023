@@ -40,19 +40,16 @@ public class Tile : MonoBehaviour {
         return "x=" + x + " y=" + y;
     }
 
-    private void Start() {
-        gameManager = Camera.main.GetComponent<GameManager>();
-        hexHighlight = Instantiate(hexHighlightPrefab);
-        hexHighlight.GetComponent<Highlight>().SetPosition(this);
-        hexHighlight.SetActive(false);
-    }
-
     public void ChangeColor (Color c) {
         renderer.material.color = c;
     }
 
     // implement movement
     private void Awake() {
+        gameManager = Camera.main.GetComponent<GameManager>();
+        hexHighlight = Instantiate(hexHighlightPrefab);
+        hexHighlight.GetComponent<Highlight>().SetPosition(this);
+        hexHighlight.SetActive(false);
         renderer = GetComponent<Renderer>();
     }
 

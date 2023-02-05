@@ -24,22 +24,77 @@ public class LevelBuilder : MonoBehaviour
     [SerializeField] int nextSceneIndex;
     GameManager gameManager;
 
+    [SerializeField] bool procedural = false;
+
+    void ProcedurallyGenerateEnemies (GameObject prefab, int n) {
+        for (int i = 0; i < n; i++) {
+            var tile = hexMap.GetRandomTile();
+            bool regen = true;
+            while (regen) {
+                tile = hexMap.GetRandomTile();
+                regen = false;
+                if (tile.passable == false || tile == hexMap.goalTile || tile == gameManager.playerPosition) {
+                    regen = true;
+                } else if (Enemy.EnemyLocations.ContainsKey(tile)) {
+                    regen = true;
+                }   
+            }
+
+            GameObject enemy = Instantiate(prefab);
+            enemy.GetComponent<Enemy>().SetPosition(tile);
+        }
+    }
+
 
     public void Start() {
         gameManager = Camera.main.GetComponent<GameManager>();
         gameManager.nextSceneIndex = nextSceneIndex;
 
-        hexMap.GenerateHexMap(dimensions.x, dimensions.y);
+        if (procedural) {
+            dimensions = new Vector2Int(20, 20);
+            hexMap.GenerateHexMap(dimensions.x, dimensions.y);
 
-        GeneratePlayer(playerCoords);
-        GenerateMeleeEnemies(meleeBaddieCoords);
-        GenerateRangedEnemies(rangedBaddieCoords);
-        GenerateMeleeMonsters(meleeMonsterCoords);
-        GenerateImpassableTerrain(impassableTerrainCoords);
-        GenerateGoal(goalCoord);
+            Vector2Int goalOffset = new Vector2Int(Random.Range(1,4), Random.Range(1,4));
+            GenerateGoal(dimensions-goalOffset);
+            GeneratePlayer(new Vector2Int(0, 0));
+
+            int nTiles = dimensions.x*dimensions.y;
+            int nImpass = (int) Random.Range(nTiles*0.10f, nTiles*.2f);
+            for (int i = 0; i < nImpass; i++) {
+                Tile tile = hexMap.GetRandomTile();
+
+                bool regen = true;
+                while (regen) {
+                    tile = hexMap.GetRandomTile();
+                    regen = false;
+                    if (tile.passable == false || tile == hexMap.goalTile || tile == gameManager.playerPosition) {
+                        regen = true;
+                    } else {
+                        tile.passable = false;
+                        if (hexMap.FindPath(gameManager.playerPosition, hexMap.goalTile) == null) {
+                            tile.passable = true;
+                            regen = true;
+                        }
+                    }
+                }
+                GameObject strawberry = Instantiate(impassableTerrainPrefab);
+                strawberry.GetComponent<Strawberry>().SetPosition(tile);
+            }
+
+            ProcedurallyGenerateEnemies(meleeEnemyPrefab, Random.Range(0,5));
+            ProcedurallyGenerateEnemies(rangedEnemyPrefab, Random.Range(0,5));
+            ProcedurallyGenerateEnemies(meleeMonsterPrefab, Random.Range(0,5));
+        } else {
+            GenerateMeleeEnemies(meleeBaddieCoords);
+            GenerateRangedEnemies(rangedBaddieCoords);
+            GenerateMeleeMonsters(meleeMonsterCoords);
+            GenerateImpassableTerrain(impassableTerrainCoords);
+            GenerateGoal(goalCoord);
+        }
     }
 
     public void GenerateGoal (Vector2Int coord) {
+        Debug.Log("hexMap=" + hexMap==null);
         hexMap.SetupGoal(coord);
     }
 
