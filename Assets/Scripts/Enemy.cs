@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour {
     RangedAttack attack;
     [SerializeField] GameObject stunPrefab;
     GameObject stunImage;
-    GameManager gameManager;
+    public GameManager gameManager;
 
     public static Dictionary<Tile, Enemy> EnemyLocations = new Dictionary<Tile, Enemy>();
 

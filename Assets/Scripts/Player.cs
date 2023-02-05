@@ -9,6 +9,11 @@ public class Player : MonoBehaviour {
         gameManager = Camera.main.GetComponent<GameManager>();
     }
 
+    public void DoneMoving () {
+        Debug.Log("done moving");
+        // here Brendon
+    }
+
     public void SetPosition (Tile tile) {
         transform.position = tile.GetPosition() + 2*Vector3.up;
         gameManager.playerPosition = tile;
