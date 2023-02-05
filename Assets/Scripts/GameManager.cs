@@ -94,6 +94,7 @@ public class GameManager : MonoBehaviour {
         for (float t = 0f; t < 1f; t = t+Time.deltaTime/duration) {
             float y = g.transform.position.y;
             g.transform.position = Vector3.Lerp(a.GetPosition(), b.GetPosition(), t) + Vector3.up*y;
+            g.transform.LookAt(new Vector3(b.GetPosition().x, g.transform.position.y, b.GetPosition().z));
             yield return null;
         }
 
