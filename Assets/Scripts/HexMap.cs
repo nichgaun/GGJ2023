@@ -10,12 +10,7 @@ public class HexMap : MonoBehaviour {
     float tileSize = 2f;
     float tileWidth, tileHeight; 
     [SerializeField] GameObject player;
-
-    List<Enemy> enemies = new List<Enemy>();
-
-    public void AddEnemy (Enemy e) {
-        enemies.Add(e);
-    }
+    GameManager gameManager;
 
     private void Awake () {
         tileWidth = Mathf.Sqrt(3) * tileSize;
@@ -159,7 +154,7 @@ public class HexMap : MonoBehaviour {
 
     List<Tile> finders = new List<Tile>(), path = new List<Tile>();
     public void SetTileToPathFind (Tile tile) {
-        foreach (var enemy in enemies) {
+        foreach (var enemy in gameManager.enemies) {
             enemy.Seek(tile);
         }
 
@@ -195,6 +190,10 @@ public class HexMap : MonoBehaviour {
                 Gizmos.DrawLine(current.transform.position, tile.transform.position);
             current = tile;
         }
+    }
+
+    private void Start() {
+        gameManager = Camera.main.GetComponent<GameManager>();
     }
 
     public List<Tile> FindPath (Tile start, Tile goal) {

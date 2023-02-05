@@ -16,12 +16,12 @@ public class Enemy : MonoBehaviour {
     RangedAttack attack;
     [SerializeField] GameObject stunPrefab;
     GameObject stunImage;
+    GameManager gameManager;
 
     public static Dictionary<Tile, Enemy> EnemyLocations = new Dictionary<Tile, Enemy>();
 
     private void Start () {
         map = GameObject.Find("HexMap").GetComponent<HexMap>();
-        map.AddEnemy(this);
         renderer = GetComponent<Renderer>();
         attack = gameObject.GetComponent<RangedAttack>();
 
@@ -35,6 +35,9 @@ public class Enemy : MonoBehaviour {
         if (position == null) {
             SetPosition(map.GetRandomTile());
         }
+        
+        gameManager = Camera.main.GetComponent<GameManager>();
+        gameManager.AddEnemy(this);
     }
 
     public Tile NextStep () {
@@ -62,37 +65,40 @@ public class Enemy : MonoBehaviour {
         transform.position = position.transform.position + new Vector3(0f, 1f, 0f);
     }
 
-    float duration = 1f;
+    float duration = .5f;
+    static bool translating = false;
     IEnumerator Translate (Tile a, Tile b) {
-        // Debug.Log("a.GetPosition()=" + a.GetPosition() + " b.GetPosition()=" + b.GetPosition());
+        translating = true;
+        Debug.Log("a.GetPosition()=" + a.GetPosition() + " b.GetPosition()=" + b.GetPosition());
         for (float t = 0f; t < 1f; t = t+Time.deltaTime/duration) {
             transform.position = Vector3.Lerp(a.GetPosition(), b.GetPosition(), t) + Vector3.up;
             yield return null;
         }
         SetPosition(b);
 
+        sequence.Dequeue();
         if (sequence.Count > 0) {
-            sequence.Dequeue()();
+            sequence.Peek()();
         }
+        translating = false;
     }
 
     public delegate void Animation ();
-
-    Queue<Animation> sequence = new Queue<Animation>();
-
+    static Queue<Animation> sequence = new Queue<Animation>();
     void Move () {
         Tile tile = position;
         for (int i = 0; i < speed; i++) {
+            var prevTile = tile;
             var nextTile = NextStep();
             if (nextTile is null)
                 break;
 
             // SetPosition(tile);
-            sequence.Enqueue(() => StartCoroutine(Translate(tile, nextTile)));
-            if (sequence.Count == 1) {
-                sequence.Dequeue()();
+            sequence.Enqueue(() => StartCoroutine(Translate(prevTile, nextTile)));
+            tile = nextTile;
+            if (!translating) {
+                sequence.Peek()();
             }
-
             
             if (nextTile.isTrapped) // is trap
                 break;
@@ -141,7 +147,9 @@ public class Enemy : MonoBehaviour {
     }
 
     private void SetColor() {
-        return; // short circuits
+        //// ALERT ////
+        return; // ALERT short circuits
+        //// ALERT ////
 
         //do any conditions supercede the other? stunned is stronger than rooted
         if (stunned)           {color = Color.yellow;}
