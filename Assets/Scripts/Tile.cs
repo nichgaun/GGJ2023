@@ -72,11 +72,13 @@ public class Tile : MonoBehaviour {
     }
 
     private void Update() {
+        /*
         if (Input.GetMouseButtonDown(1) && selected) {
             passable = !passable;
             color = passable ? Color.white : Color.gray;
             renderer.material.color = color;
         }
+        */
     }
 
     private void OnMouseUpAsButton() {
