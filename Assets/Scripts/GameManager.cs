@@ -7,9 +7,6 @@ public class GameManager : MonoBehaviour {
     [SerializeField] public GameObject hexMap;
     GameObject player;
     [SerializeField] public GameObject trapPrefab;
-    [SerializeField] GameObject meleePrefab;
-    [SerializeField] GameObject rangedPrefab;
-    [SerializeField] GameObject meleeMonsterPrefab;
 
     public Tile playerPosition;
     public HexMap hexMapObj;
@@ -30,11 +27,8 @@ public class GameManager : MonoBehaviour {
     public void Start() {
         player = GameObject.FindGameObjectWithTag("Player");
         hexMapObj = hexMap.GetComponent<HexMap>();
-        Tile startTile = hexMapObj.GetTile(new Vector2Int(0,0));
-        player.GetComponent<Player>().SetPosition(startTile);
-        GenerateEnemies(1, 1, 1);
     }
-
+    
     public void ExecuteOnClick(GameObject obj) {
         onClickCallback(obj);
     }
@@ -95,20 +89,6 @@ public class GameManager : MonoBehaviour {
         abilityUI.Turn();
         foreach(var enemy in enemies) {
             enemy.Turn();
-        }
-    }
-
-    public void GenerateEnemies(int meleeEnemies = 2, int rangedEnemies = 2, int meleeMonster = 1) {
-        for (int i=0; i<meleeEnemies; i++) {
-            var enemy = Instantiate(meleePrefab);
-        }
-
-        for (int i=0; i<rangedEnemies; i++) {
-            var enemy = Instantiate(rangedPrefab);
-        }
-
-        for (int i=0; i<meleeMonster; i++) {
-            var enemy = Instantiate(meleeMonsterPrefab);
         }
     }
 

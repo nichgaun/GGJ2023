@@ -357,9 +357,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hexMap: {fileID: 1112806097}
   trapPrefab: {fileID: 4184367267477377178, guid: 8a878f6a0f799304cadc8dd7dc2c6513, type: 3}
-  meleePrefab: {fileID: 6502378137867417724, guid: 7e5943b10c10b22439cc3291537b44af, type: 3}
-  rangedPrefab: {fileID: 6502378137867417724, guid: b748652c0950e5d42b1934a3bfd7f281, type: 3}
-  meleeMonsterPrefab: {fileID: 6502378137867417724, guid: 3955823cc1d37ef48b52ccfd4f9acfe5, type: 3}
   playerPosition: {fileID: 0}
   hexMapObj: {fileID: 0}
   enemies: []
@@ -1193,6 +1190,118 @@ PrefabInstance:
       propertyPath: hexMap
       value: 
       objectReference: {fileID: 1112806098}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: playerCoords.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: playerCoords.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: meleeEnemyPrefab
+      value: 
+      objectReference: {fileID: 6502378137867417724, guid: 7e5943b10c10b22439cc3291537b44af, type: 3}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: rangedEnemyPrefab
+      value: 
+      objectReference: {fileID: 6502378137867417724, guid: b748652c0950e5d42b1934a3bfd7f281, type: 3}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: meleeMonsterPrefab
+      value: 
+      objectReference: {fileID: 6502378137867417724, guid: 3955823cc1d37ef48b52ccfd4f9acfe5, type: 3}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: impassableTerrainPrefab
+      value: 
+      objectReference: {fileID: 4699464548193801098, guid: 03fbf61bbdd129e4696ad0bbcfd3d7e3, type: 3}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: meleeBaddieCoords.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: meleeMonsterCoords.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: rangedBaddieCoords.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: meleeBaddieCoords.Array.data[0].x
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: meleeBaddieCoords.Array.data[0].y
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: meleeBaddieCoords.Array.data[1].x
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: meleeBaddieCoords.Array.data[1].y
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: impassableTerrainCoords.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: meleeMonsterCoords.Array.data[0].x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: meleeMonsterCoords.Array.data[0].y
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: meleeMonsterCoords.Array.data[1].x
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: meleeMonsterCoords.Array.data[1].y
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: rangedBaddieCoords.Array.data[0].x
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: rangedBaddieCoords.Array.data[0].y
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: impassableTerrainCoords.Array.data[0].x
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: impassableTerrainCoords.Array.data[0].y
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: impassableTerrainCoords.Array.data[1].x
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: impassableTerrainCoords.Array.data[1].y
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: impassableTerrainCoords.Array.data[2].x
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: impassableTerrainCoords.Array.data[2].y
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: impassableTerrainCoords.Array.data[3].x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: impassableTerrainCoords.Array.data[3].y
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4005941354167236447, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
       propertyPath: m_RootOrder
       value: 7
