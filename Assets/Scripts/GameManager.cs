@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField] public GameObject trapPrefab;
 
     [SerializeField] GameObject victoryUIPrefab; //set in editor
-    [SerializeField] float timeToWaitAfterDeath;
+    [SerializeField] float timeToWaitAfterVictory;
 
     public Tile playerPosition;
     public HexMap hexMapObj;
@@ -115,17 +115,18 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public void ShowVictory(int nextScene) {
+    public void ShowVictory() {
         GameObject g = Instantiate(victoryUIPrefab);
         g.transform.SetParent(GameObject.Find("Canvas").transform, false);
-        StartCoroutine(SendToMainMenuAfterTime(nextScene));
+        StartCoroutine(ReloadLevelAfterTime());
     }
 
-    IEnumerator SendToMainMenuAfterTime(int nextScene)
+    IEnumerator ReloadLevelAfterTime()
     {
-        yield return new WaitForSeconds(timeToWaitAfterDeath);
+        yield return new WaitForSeconds(timeToWaitAfterVictory);
 
-        SceneManager.LoadScene(nextScene);
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
     }
     
 
