@@ -13,16 +13,27 @@ public class HexMap : MonoBehaviour {
     float tileWidth, tileHeight; 
     [SerializeField] GameObject player;
     GameManager gameManager;
+    public GameObject goalHex;
+    GameObject goalIndicator;
+
+    private void SetupGoal () {
+        Tile goalTile = GetTile(new Vector2Int(Random.Range(map.Count-3, map.Count), Random.Range(map.Count-3, map.Count)));
+
+        goalTile.isGoal = true;
+        goalIndicator = Instantiate(goalHex, goalTile.GetPosition(), Quaternion.identity);
+        goalIndicator.transform.localScale += 5*Vector3.up;
+        foreach (var renderer in goalIndicator.GetComponentsInChildren<Renderer>()) {
+            
+        }
+    }
 
     private void Awake () {
         tileWidth = Mathf.Sqrt(3) * tileSize;
         tileHeight = 3/2 * tileSize;
 
         GenerateHexMap();
+        SetupGoal();
 
-        Tile goalTile = GetTile(new Vector2Int(Random.Range(map.Count-3, map.Count), Random.Range(map.Count-3, map.Count)));
-        goalTile.ChangeColor(Color.green);
-        goalTile.isGoal = true;
     }
 
     private void GenerateHexMap(int x = 10, int y = 10){

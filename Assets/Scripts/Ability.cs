@@ -40,6 +40,7 @@ public class Ability {
         a.condition = StunCondition;
         a.cooldownMax = 3;
         a.highlighter = TargetHighlighter;
+        a.description = CooldownDescribe;
     }
 
     static void InitMove (Ability a) {
@@ -211,6 +212,10 @@ public class Ability {
 
     static bool Moves (Ability a) {
         return a.moveRemaining <= 0;
+    }
+
+    static string CooldownDescribe (Ability a) {
+        return a.type.ToString() + " CD:" + a.cooldown.ToString();
     }
 
     static string DefaultDescribe (Ability a) {
