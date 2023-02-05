@@ -69,6 +69,15 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    static GameManager GetManager (GameObject g) {
+        if (g.GetComponent<Enemy>() != null)
+            return g.GetComponent<Enemy>().gameManager;
+        else if (g.GetComponent<Player>() != null) {
+            return g.GetComponent<Player>().gameManager;
+        }
+        return null;
+    }
+
     static float duration = .5f;
     static bool translating = false;
     static public IEnumerator Translate (GameObject g, Tile a, Tile b) {
@@ -87,6 +96,7 @@ public class GameManager : MonoBehaviour {
             sequence.Dequeue()();
         } else {
             translating = false;
+            GetManager(g).GetPlayer().GetComponent<Player>().DoneMoving();
         }
     }
 
