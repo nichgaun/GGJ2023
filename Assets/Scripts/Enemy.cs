@@ -74,13 +74,23 @@ public class Enemy : MonoBehaviour {
     
     IEnumerator Move () {
         moving = true;
+        target = gameManager.playerPosition;
+
         var path = gameManager.hexMapObj.FindPath(position, target);
 
         if (path != null) {
             path.Reverse();
+
+
             for (int i = 0; i < path.Count-1 && i < speed; i++) {
+                if (gameObject.GetComponent<RangedAttack>() != null && gameObject.GetComponent<RangedAttack>().CheckShot()) {
+                    Debug.Log("hey");
+                    break;
+                }
+
                 if (path[i+1].Occupied())
                     break;
+
                 yield return GameManager.Translate(gameObject, path[i], path[i+1]);
             }
         }
