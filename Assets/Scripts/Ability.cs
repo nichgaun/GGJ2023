@@ -7,13 +7,14 @@ public delegate bool Condition (GameObject obj, Ability a);
 public delegate string Description (Ability a);
 public delegate bool Used (Ability a);
 public delegate void Initializer (Ability a);
+public delegate void Highlighter (Ability a);
 
 public enum AbilityType {
     Stun,
     Root,
     Move,
     Trap,
-    Poop,
+    Slow,
 }
 
 public class Ability {
@@ -29,6 +30,7 @@ public class Ability {
     public Condition condition = DefaultCondition;
     public Description description = DefaultDescribe;
     public Used exhausted = DefaultExhaust;
+    public Highlighter highlighter = DefaultHighlighter;
     AbilityType type;
 
     static void InitStun (Ability a) {
@@ -40,6 +42,7 @@ public class Ability {
         a.effect = Move;
         a.condition = InMoveRange;
         a.exhausted = Moves;
+        a.highlighter = MoveHighlighter;
     }
 
     static void InitRoot (Ability a) {}
@@ -49,8 +52,8 @@ public class Ability {
         a.condition = InRange;
     }
 
-    static void InitPoop (Ability a) {
-        a.effect = Poop;
+    static void InitSlow (Ability a) {
+        a.effect = Slow;
         a.needClick = false;
     }
 
@@ -59,7 +62,7 @@ public class Ability {
         {AbilityType.Move, InitMove},
         {AbilityType.Root, InitRoot},
         {AbilityType.Trap, InitTrap},
-        {AbilityType.Poop, InitPoop},
+        {AbilityType.Slow, InitSlow},
     };
 
     public void Initialize (AbilityType type) {
@@ -74,9 +77,10 @@ public class Ability {
 
     //nick is based
     public void OnClick () {
-        if (needClick)
+        if (needClick) {
+            highlighter(this);
             gameManager.SubscribeToOnTileClick(Execute);
-        else {
+        } else {
             Execute(null);
         }
     }
@@ -145,8 +149,8 @@ public class Ability {
     }
 
     // Effect
-    static void Poop (GameObject obj, Ability a) {
-        Debug.Log("im pooping");
+    static void Slow (GameObject obj, Ability a) {
+        Debug.Log("Activating slow");
     }
 
     static bool DefaultExhaust (Ability a) {
@@ -159,5 +163,18 @@ public class Ability {
 
     static string DefaultDescribe (Ability a) {
         return a.type.ToString();
+    }
+
+    static void DefaultHighlighter (Ability a) {
+        //nothing
+    }
+
+    static void MoveHighlighter(Ability a) {
+        Tile tile = a.gameManager.playerPosition;
+        List<Tile> moveTiles = tile.map.GetTilesInRange(tile, a.moveRemaining);
+
+        foreach (Tile validTile in moveTiles) {
+            validTile.ChangeColor(Color.green);
+        }
     }
 }

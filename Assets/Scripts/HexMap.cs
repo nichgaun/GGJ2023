@@ -248,4 +248,18 @@ public class HexMap : MonoBehaviour {
         return true;
        
     }   
+
+    public List<Tile> GetTilesInRange(Tile tile, int range) {
+        List<Tile> validTiles = new List<Tile>();
+        validTiles.Add(tile);
+
+        for (int i = 0; i<range; i++) {
+            foreach (Tile option in validTiles) {
+                List<Tile> tempList = GetNeighbors(option);
+                validTiles = validTiles.Union(tempList).ToList();
+            }
+        }
+
+        return validTiles;
+    }
 }
