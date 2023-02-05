@@ -30,6 +30,10 @@ public class GameManager : MonoBehaviour {
         abilityUI = aui;
     }
 
+    public void SetPlayer (GameObject p) {
+        player = p;
+    }
+
     public void Start() {
         player = GameObject.FindGameObjectWithTag("Player");
         hexMapObj = hexMap.GetComponent<HexMap>();
@@ -83,7 +87,7 @@ public class GameManager : MonoBehaviour {
     }
 
     static float duration = .5f;
-    static bool translating = false;
+    static public bool translating = false;
     static public IEnumerator Translate (GameObject g, Tile a, Tile b) {
         translating = true;
 
@@ -100,7 +104,7 @@ public class GameManager : MonoBehaviour {
             sequence.Dequeue()();
         } else {
             translating = false;
-            if (g.GetComponent<Player>() != null)
+            if (g.GetComponent<Player>() != null && !Enemy.moving)
                 g.GetComponent<Player>().DoneMoving();
         }
     }
@@ -128,6 +132,7 @@ public class GameManager : MonoBehaviour {
 
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
+        StopAllCoroutines();
     }
     
 

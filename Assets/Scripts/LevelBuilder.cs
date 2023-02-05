@@ -46,7 +46,7 @@ public class LevelBuilder : MonoBehaviour
     }
 
 
-    public void Start() {
+    public void Start () {
         gameManager = Camera.main.GetComponent<GameManager>();
         gameManager.nextSceneIndex = nextSceneIndex;
 
@@ -60,6 +60,7 @@ public class LevelBuilder : MonoBehaviour
 
             int nTiles = dimensions.x*dimensions.y;
             int nImpass = (int) Random.Range(nTiles*0.10f, nTiles*.2f);
+            // Debug.Log("nImpass=" + nImpass);
             for (int i = 0; i < nImpass; i++) {
                 Tile tile = hexMap.GetRandomTile();
 
@@ -104,6 +105,7 @@ public class LevelBuilder : MonoBehaviour
     public void GeneratePlayer(Vector2Int coord) {
         GameObject player = Instantiate(playerPrefab);
         player.GetComponent<Player>().SetPosition(hexMap.GetTile(coord));
+        gameManager.SetPlayer(player);
     }
 
     public void GenerateMeleeEnemies(List<Vector2Int> coords) {

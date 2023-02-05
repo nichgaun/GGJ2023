@@ -107,7 +107,11 @@ public class Enemy : MonoBehaviour {
         if (moves.Count > 0) {
             moves.Dequeue()();
         } else {
+
             moving = false;
+            if (!GameManager.translating) {
+                gameManager.GetPlayer().GetComponent<Player>().DoneMoving();
+            }
         }
     }
 

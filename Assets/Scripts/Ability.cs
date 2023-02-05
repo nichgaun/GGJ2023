@@ -188,6 +188,7 @@ public class Ability {
 
         for (int i = path.Count-1; i > 0; i--) {
             var player = a.gameManager.GetPlayer();
+            // Debug.Log("player==null="+(player==null));
             a.gameManager.QueueTranslation(player, path[i], path[i-1]);
         }
     }
@@ -201,6 +202,7 @@ public class Ability {
     }
 
     static bool Moves (Ability a) {
+        Debug.Log("a.moveRemaining=" + a.moveRemaining);
         return a.moveRemaining <= 0;
     }
 
