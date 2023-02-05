@@ -44,4 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24cdc089899b46e4d95c3eb4791ce58f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allTiles: []
   tilePrefab: {fileID: 5401748790341708955, guid: fbe4e46b54a7af84699d499f586c10c0, type: 3}
+  player: {fileID: 0}
+  goalHex: {fileID: 699299135979160368, guid: b1c5ab47b70d2304794da6d2e1640358, type: 3}
