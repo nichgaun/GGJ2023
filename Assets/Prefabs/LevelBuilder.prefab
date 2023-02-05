@@ -49,4 +49,12 @@ MonoBehaviour:
   meleeMonsterCoords: []
   playerCoords: {x: 0, y: 0}
   impassableTerrainCoords: []
+  goalCoord: {x: 9, y: 9}
+  dimensions: {x: 10, y: 10}
   playerPrefab: {fileID: 582980151706136284, guid: 34dfeaaa86c96e843a11fb2b4e052080, type: 3}
+  meleeEnemyPrefab: {fileID: 0}
+  rangedEnemyPrefab: {fileID: 0}
+  meleeMonsterPrefab: {fileID: 0}
+  impassableTerrainPrefab: {fileID: 0}
+  hexMap: {fileID: 0}
+  nextSceneIndex: 0

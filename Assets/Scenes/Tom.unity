@@ -1192,6 +1192,22 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1112806098}
     - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: goalCoord.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: goalCoord.y
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: dimensions.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
+      propertyPath: dimensions.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005941354167236446, guid: a42826d6c93ab8940abb2ec45fed318a, type: 3}
       propertyPath: playerCoords.x
       value: 0
       objectReference: {fileID: 0}

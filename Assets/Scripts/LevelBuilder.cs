@@ -12,6 +12,7 @@ public class LevelBuilder : MonoBehaviour
 
     [SerializeField] List<Vector2Int> impassableTerrainCoords;
     [SerializeField] Vector2Int goalCoord;
+    [SerializeField] Vector2Int dimensions;
 
 
     [SerializeField] GameObject playerPrefab;
@@ -27,6 +28,9 @@ public class LevelBuilder : MonoBehaviour
     public void Start() {
         gameManager = Camera.main.GetComponent<GameManager>();
         gameManager.nextSceneIndex = nextSceneIndex;
+
+        hexMap.GenerateHexMap(dimensions.x, dimensions.y);
+
         GeneratePlayer(playerCoords);
         GenerateMeleeEnemies(meleeBaddieCoords);
         GenerateRangedEnemies(rangedBaddieCoords);
