@@ -124,12 +124,12 @@ public class Enemy : MonoBehaviour {
     }
 
     private void Update() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            Turn();
-        }
+        // if (Input.GetKeyDown(KeyCode.Space)) {
+        //     Turn();
+        // }
     }
 
-    private void Turn () {
+    public void Turn () {
         //Wanted to separate these bc i didn't know how to cascade them right
         if (!stunned && rooted <= 0) {
             Move();

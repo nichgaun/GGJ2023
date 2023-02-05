@@ -22,6 +22,11 @@ public class GameManager : MonoBehaviour
         enemies.Add(e);
     }
 
+    AbilityUI abilityUI;
+    public void SetAbilityUI (AbilityUI aui) {
+        abilityUI = aui;
+    }
+
     public void Start() {
         hexMapObj = hexMap.GetComponent<HexMap>();
         Tile startTile = hexMapObj.GetTile(new Vector2Int(0,0));
@@ -46,6 +51,13 @@ public class GameManager : MonoBehaviour
 
     public GameObject GetPlayer() {
         return player;
+    }
+
+    public void Turn () {
+        abilityUI.Turn();
+        foreach(var enemy in enemies) {
+            enemy.Turn();
+        }
     }
 
     public void GenerateEnemies(int meleeEnemies = 2, int rangedEnemies = 2) {
