@@ -10,7 +10,7 @@ public class Health : MonoBehaviour
     public int currentHealth = 100;
 
     [SerializeField] Slider healthBar; //set in editor
-    [SerializeField] GameObject gameOverUI; //set in editor
+    [SerializeField] GameObject gameOverUIPrefab; //set in editor
     [SerializeField] float timeToWaitAfterDeath; //set in editor
 
 
@@ -26,7 +26,8 @@ public class Health : MonoBehaviour
         } 
 
         if (currentHealth <= 0) {
-            gameOverUI.SetActive(true);
+            GameObject g = Instantiate(gameOverUIPrefab);
+            g.transform.SetParent(GameObject.Find("Canvas").transform, false);
             StartCoroutine(SendToMainMenuAfterTime());
         }
     }
