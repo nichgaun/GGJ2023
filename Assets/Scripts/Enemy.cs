@@ -54,7 +54,7 @@ public class Enemy : MonoBehaviour {
         NextStep(); // throw away first step
     }
 
-    void SetPosition (Tile tile) {
+    public void SetPosition (Tile tile) {
         if (tile is null)
             return;
         
@@ -65,26 +65,6 @@ public class Enemy : MonoBehaviour {
         transform.position = position.transform.position + new Vector3(0f, 1f, 0f);
     }
 
-    float duration = .5f;
-    static bool translating = false;
-    IEnumerator Translate (Tile a, Tile b) {
-        translating = true;
-        Debug.Log("a.GetPosition()=" + a.GetPosition() + " b.GetPosition()=" + b.GetPosition());
-        for (float t = 0f; t < 1f; t = t+Time.deltaTime/duration) {
-            transform.position = Vector3.Lerp(a.GetPosition(), b.GetPosition(), t) + Vector3.up;
-            yield return null;
-        }
-        SetPosition(b);
-
-        sequence.Dequeue();
-        if (sequence.Count > 0) {
-            sequence.Peek()();
-        }
-        translating = false;
-    }
-
-    public delegate void Animation ();
-    static Queue<Animation> sequence = new Queue<Animation>();
     void Move () {
         Tile tile = position;
         for (int i = 0; i < speed; i++) {
@@ -94,11 +74,8 @@ public class Enemy : MonoBehaviour {
                 break;
 
             // SetPosition(tile);
-            sequence.Enqueue(() => StartCoroutine(Translate(prevTile, nextTile)));
+            gameManager.QueueTranslation(gameObject, prevTile, nextTile);
             tile = nextTile;
-            if (!translating) {
-                sequence.Peek()();
-            }
             
             if (nextTile.isTrapped) // is trap
                 break;

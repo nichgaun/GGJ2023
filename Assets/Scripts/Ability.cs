@@ -168,8 +168,15 @@ public class Ability {
         Tile tile = obj.GetComponent<Tile>();
         int distance = tile.map.GetDistance(a.gameManager.playerPosition, tile);
         a.moveRemaining -= distance;
-        a.gameManager.GetPlayer().transform.SetParent(tile.transform, false);
-        a.gameManager.playerPosition = tile;
+
+        var path = a.gameManager.hexMapObj.FindPath(a.gameManager.playerPosition, tile);
+
+        Debug.Log("player=" + a.gameManager.GetPlayer().name);
+
+        for (int i = path.Count-1; i > 0; i--) {
+            var player = a.gameManager.GetPlayer();
+            a.gameManager.QueueTranslation(player, path[i], path[i-1]);
+        }
     }
 
     // Effect
