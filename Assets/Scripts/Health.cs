@@ -24,10 +24,4 @@ public class Health : MonoBehaviour
         }
            
     }
-
-    public void Update() {
-        if (Input.GetKeyDown(KeyCode.F)) {
-            Damage(10);
-        }
-    }
 }
