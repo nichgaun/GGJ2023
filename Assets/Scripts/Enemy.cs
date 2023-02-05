@@ -20,6 +20,12 @@ public class Enemy : MonoBehaviour {
 
     public static Dictionary<Tile, Enemy> EnemyLocations = new Dictionary<Tile, Enemy>();
 
+    [SerializeField] ParticleSystem stunParticlesPrefab; //set in editor
+    ParticleSystem activeStunParticles;
+
+    [SerializeField] ParticleSystem slowParticlesPrefab; //set in editor
+    ParticleSystem activeSlowParticles;
+
     private void Start () {
         map = GameObject.Find("HexMap").GetComponent<HexMap>();
         renderer = GetComponent<Renderer>();
@@ -38,6 +44,9 @@ public class Enemy : MonoBehaviour {
         
         gameManager = Camera.main.GetComponent<GameManager>();
         gameManager.AddEnemy(this);
+
+        activeStunParticles = null;
+        activeStunParticles = null;
     }
 
     public void Seek (Tile tile) {
@@ -115,6 +124,11 @@ public class Enemy : MonoBehaviour {
         SetColor();
 
         StartCoroutine(ShowStun());
+
+        activeStunParticles = Instantiate(stunParticlesPrefab);
+        activeStunParticles.transform.SetParent(transform);
+        activeStunParticles.transform.localPosition = new Vector3(0f, 5f, 0f);
+        activeStunParticles.Play();
     }
 
     IEnumerator ShowStun() {
@@ -129,6 +143,11 @@ public class Enemy : MonoBehaviour {
     }
     public void Slow() {
         speed = 1;
+
+        activeSlowParticles = Instantiate(slowParticlesPrefab);
+        activeSlowParticles.transform.SetParent(transform);
+        activeSlowParticles.transform.localPosition = new Vector3(0f, 5f, 0f);
+        activeSlowParticles.Play();
     }
 
     private void Update() {
@@ -154,6 +173,17 @@ public class Enemy : MonoBehaviour {
         }
         
         SetColor();
+
+        if (!stunned && activeStunParticles != null)
+        {
+            Destroy(activeStunParticles.gameObject);
+        }
+
+        //no longer being slowed
+        if (speed == maxSpeed && activeSlowParticles != null)
+        {
+            Destroy(activeSlowParticles.gameObject);
+        }
     }
 
     private void SetColor() {
