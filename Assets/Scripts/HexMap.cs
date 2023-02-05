@@ -147,7 +147,7 @@ public class HexMap : MonoBehaviour {
     }
 
     public Tile GetTile (Vector2Int hex) {
-        Debug.Log("get tile success" + hex + " width=" + width + " height=" + height);
+        // Debug.Log("get tile success" + hex + " width=" + width + " height=" + height);
         if (hex.x >= width || hex.x < 0 || hex.y >= height || hex.y < 0)
             return null;
 
@@ -258,7 +258,7 @@ public class HexMap : MonoBehaviour {
         }
 
         Vector2Int diff = ToAxial(path[0]) - ToAxial(path[1]);
-        Debug.Log(diff);
+        // Debug.Log(diff);
 
         for (int i = 1; i < path.Count-1; i++) {
             Vector2Int newDiff = ToAxial(path[i]) - ToAxial(path[i+1]);
