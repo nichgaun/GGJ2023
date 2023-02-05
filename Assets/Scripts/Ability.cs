@@ -23,6 +23,7 @@ public class Ability {
     public int maxDistance = 5;
     private int maxMove = 2;
     public int moveRemaining = 2;
+    public int cooldown = 0, cooldownMax = 0;
     private bool needClick = true;
 
     public bool used = false;
@@ -35,6 +36,7 @@ public class Ability {
     static void InitStun (Ability a) {
         a.effect = Stun;
         a.condition = StunCondition;
+        a.cooldownMax = 3;
     }
 
     static void InitMove (Ability a) {
@@ -46,18 +48,19 @@ public class Ability {
     static void InitRoot (Ability a) {
         a.effect = Root;
         a.condition = RootCondition;
-
+        a.cooldownMax = 2;
     }
 
     static void InitSlow (Ability a) {
         a.effect = Slow;
         a.condition = RootCondition;
-
+        a.cooldownMax = 1;
     }
 
     static void InitTrap (Ability a) {
         a.effect = Trap;
         a.condition = InRange;
+        a.cooldownMax = 3;
     }
 
     static void InitPoop (Ability a) {
@@ -94,7 +97,10 @@ public class Ability {
     }
 
     public void Turn () {
-        used = false;
+        cooldown--;
+        if (cooldown <= 0) {
+            used = false;
+        }
         moveRemaining = maxMove;
     }
 
@@ -185,6 +191,7 @@ public class Ability {
     }
 
     static bool DefaultExhaust (Ability a) {
+        a.cooldown = a.cooldownMax;
         return true;
     }
 
