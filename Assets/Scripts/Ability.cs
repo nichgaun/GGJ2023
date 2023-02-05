@@ -22,8 +22,8 @@ public class Ability {
     private GameManager gameManager;
     private HexMap hexMap;
     public int maxDistance = 5;
-    private int maxMove = 20;
-    public int moveRemaining = 20;
+    private int maxMove = 2;
+    public int moveRemaining = 2;
     public int cooldown = 0, cooldownMax = 0;
     private bool needClick = true;
 
