@@ -85,6 +85,9 @@ public class LevelBuilder : MonoBehaviour
             ProcedurallyGenerateEnemies(rangedEnemyPrefab, Random.Range(0,5));
             ProcedurallyGenerateEnemies(meleeMonsterPrefab, Random.Range(0,5));
         } else {
+            hexMap.GenerateHexMap(dimensions.x, dimensions.y);
+            GenerateGoal(goalCoord);
+            GeneratePlayer(playerCoords);
             GenerateMeleeEnemies(meleeBaddieCoords);
             GenerateRangedEnemies(rangedBaddieCoords);
             GenerateMeleeMonsters(meleeMonsterCoords);
