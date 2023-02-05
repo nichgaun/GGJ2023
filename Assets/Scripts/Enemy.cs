@@ -61,6 +61,8 @@ public class Enemy : MonoBehaviour {
         transform.position = position.transform.position + new Vector3(0f, 0f, 0.75f);
     }
 
+    
+
     void Move () {
         Tile tile = null;
         for (int i = 0; i < speed; i++) {
