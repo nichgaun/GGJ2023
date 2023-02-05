@@ -33,7 +33,7 @@ public class LevelBuilder : MonoBehaviour
             while (regen) {
                 tile = hexMap.GetRandomTile();
                 regen = false;
-                if (tile.passable == false || tile == hexMap.goalTile || tile == gameManager.playerPosition) {
+                if (hexMap.GetDistance(gameManager.playerPosition, tile) < 6 || tile.passable == false || tile == hexMap.goalTile || tile == gameManager.playerPosition) {
                     regen = true;
                 } else if (Enemy.EnemyLocations.ContainsKey(tile)) {
                     regen = true;
