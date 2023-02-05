@@ -7,6 +7,7 @@ public delegate bool Condition (GameObject obj, Ability a);
 public delegate string Description (Ability a);
 public delegate bool Used (Ability a);
 public delegate void Initializer (Ability a);
+public delegate void Highlighter (Ability a);
 
 public enum AbilityType {
     Stun,
@@ -14,7 +15,6 @@ public enum AbilityType {
     Move,
     Trap,
     Slow,
-    Poop,
 }
 
 public class Ability {
@@ -31,6 +31,7 @@ public class Ability {
     public Condition condition = DefaultCondition;
     public Description description = DefaultDescribe;
     public Used exhausted = DefaultExhaust;
+    public Highlighter highlighter = DefaultHighlighter;
     AbilityType type;
 
     static void InitStun (Ability a) {
@@ -43,6 +44,7 @@ public class Ability {
         a.effect = Move;
         a.condition = InMoveRange;
         a.exhausted = Moves;
+        a.highlighter = MoveHighlighter;
     }
 
     static void InitRoot (Ability a) {
@@ -63,18 +65,12 @@ public class Ability {
         a.cooldownMax = 3;
     }
 
-    static void InitPoop (Ability a) {
-        a.effect = Poop;
-        a.needClick = false;
-    }
-
     Dictionary<AbilityType, Initializer> AbilityInitializers = new Dictionary<AbilityType, Initializer> {
         {AbilityType.Stun, InitStun},
         {AbilityType.Move, InitMove},
         {AbilityType.Root, InitRoot},
-        {AbilityType.Slow, InitSlow},
         {AbilityType.Trap, InitTrap},
-        {AbilityType.Poop, InitPoop},
+        {AbilityType.Slow, InitSlow},
     };
 
     public void Initialize (AbilityType type) {
@@ -89,9 +85,10 @@ public class Ability {
 
     //nick is based
     public void OnClick () {
-        if (needClick)
+        if (needClick) {
+            highlighter(this);
             gameManager.SubscribeToOnTileClick(Execute);
-        else {
+        } else {
             Execute(null);
         }
     }
@@ -182,12 +179,6 @@ public class Ability {
             a.gameManager.QueueTranslation(player, path[i], path[i-1]);
         }
     }
-
-    // Effect
-    static void Poop (GameObject obj, Ability a) {
-        Debug.Log("im pooping");
-    }
-
     static bool DefaultExhaust (Ability a) {
         a.cooldown = a.cooldownMax;
         return true;
@@ -199,5 +190,18 @@ public class Ability {
 
     static string DefaultDescribe (Ability a) {
         return a.type.ToString();
+    }
+
+    static void DefaultHighlighter (Ability a) {
+        //nothing
+    }
+
+    static void MoveHighlighter(Ability a) {
+        Tile tile = a.gameManager.playerPosition;
+        List<Tile> moveTiles = tile.map.GetTilesInRange(tile, a.moveRemaining);
+
+        foreach (Tile validTile in moveTiles) {
+            validTile.ChangeColor(Color.green);
+        }
     }
 }
