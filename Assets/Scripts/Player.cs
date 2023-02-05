@@ -11,7 +11,16 @@ public class Player : MonoBehaviour {
 
     public void DoneMoving () {
         Debug.Log("done moving");
-        // here Brendon
+        if (gameManager.playerPosition.isGoal) {
+            //Display complete screen
+            //-1 for victory screen
+            if (gameManager.nextSceneIndex != -1) {
+                gameManager.ShowVictory();
+            } else {
+                //set to -1 for last screen
+                //go to last screen index
+            }
+        }
     }
 
     public void SetPosition (Tile tile) {

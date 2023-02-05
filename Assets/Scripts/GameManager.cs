@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
     [SerializeField] public GameObject hexMap;
     GameObject player;
     [SerializeField] public GameObject trapPrefab;
+
+    [SerializeField] GameObject victoryUIPrefab; //set in editor
+    [SerializeField] float timeToWaitAfterVictory;
 
     public Tile playerPosition;
     public HexMap hexMapObj;
@@ -96,7 +100,8 @@ public class GameManager : MonoBehaviour {
             sequence.Dequeue()();
         } else {
             translating = false;
-            GetManager(g).GetPlayer().GetComponent<Player>().DoneMoving();
+            if (g.GetComponent<Player>() != null)
+                g.GetComponent<Player>().DoneMoving();
         }
     }
 
@@ -110,5 +115,20 @@ public class GameManager : MonoBehaviour {
             enemy.Turn();
         }
     }
+
+    public void ShowVictory() {
+        GameObject g = Instantiate(victoryUIPrefab);
+        g.transform.SetParent(GameObject.Find("Canvas").transform, false);
+        StartCoroutine(ReloadLevelAfterTime());
+    }
+
+    IEnumerator ReloadLevelAfterTime()
+    {
+        yield return new WaitForSeconds(timeToWaitAfterVictory);
+
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
+    }
+    
 
 }

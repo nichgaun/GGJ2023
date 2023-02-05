@@ -190,17 +190,6 @@ public class Ability {
             var player = a.gameManager.GetPlayer();
             a.gameManager.QueueTranslation(player, path[i], path[i-1]);
         }
-
-        if (tile.isGoal) {
-            //Display complete screen
-            //-1 for victory screen
-            if (a.gameManager.nextSceneIndex != -1) {
-                SceneManager.LoadScene(a.gameManager.nextSceneIndex);
-            } else {
-                //set to -1 for last screen
-                //go to last screen index
-            }
-        }
     }
 
     void goalEntered() {
