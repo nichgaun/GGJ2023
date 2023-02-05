@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
     [SerializeField] public GameObject hexMap;
     GameObject player;
     [SerializeField] public GameObject trapPrefab;
+
+    [SerializeField] GameObject victoryUIPrefab; //set in editor
+    [SerializeField] float timeToWaitAfterDeath;
 
     public Tile playerPosition;
     public HexMap hexMapObj;
@@ -100,5 +104,19 @@ public class GameManager : MonoBehaviour {
             enemy.Turn();
         }
     }
+
+    public void ShowVictory(int nextScene) {
+        GameObject g = Instantiate(victoryUIPrefab);
+        g.transform.SetParent(GameObject.Find("Canvas").transform, false);
+        StartCoroutine(SendToMainMenuAfterTime(nextScene));
+    }
+
+    IEnumerator SendToMainMenuAfterTime(int nextScene)
+    {
+        yield return new WaitForSeconds(timeToWaitAfterDeath);
+
+        SceneManager.LoadScene(nextScene);
+    }
+    
 
 }

@@ -22,8 +22,8 @@ public class Ability {
     private GameManager gameManager;
     private HexMap hexMap;
     public int maxDistance = 5;
-    private int maxMove = 2;
-    public int moveRemaining = 2;
+    private int maxMove = 20;
+    public int moveRemaining = 20;
     public int cooldown = 0, cooldownMax = 0;
     private bool needClick = true;
 
@@ -195,7 +195,7 @@ public class Ability {
             //Display complete screen
             //-1 for victory screen
             if (a.gameManager.nextSceneIndex != -1) {
-                SceneManager.LoadScene(a.gameManager.nextSceneIndex);
+                a.gameManager.ShowVictory(a.gameManager.nextSceneIndex);
             } else {
                 //set to -1 for last screen
                 //go to last screen index
