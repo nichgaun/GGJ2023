@@ -177,8 +177,6 @@ public class Ability {
 
         var path = a.gameManager.hexMapObj.FindPath(a.gameManager.playerPosition, tile);
 
-        Debug.Log("player=" + a.gameManager.GetPlayer().name);
-
         for (int i = path.Count-1; i > 0; i--) {
             var player = a.gameManager.GetPlayer();
             a.gameManager.QueueTranslation(player, path[i], path[i-1]);

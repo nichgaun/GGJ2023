@@ -52,7 +52,15 @@ public class GameManager : MonoBehaviour {
     public void QueueTranslation (GameObject g, Tile a, Tile b) {
         sequence.Enqueue(() => StartCoroutine(GameManager.Translate(g, a, b)));
         if (!translating) {
-            sequence.Peek()();
+            sequence.Dequeue()();
+        }
+    }
+
+    static void SetPosition (GameObject g, Tile tile) {
+        if (g.GetComponent<Enemy>() != null)
+            g.GetComponent<Enemy>().SetPosition(tile);
+        else if (g.GetComponent<Player>() != null) {
+            g.GetComponent<Player>().SetPosition(tile);
         }
     }
 
@@ -60,26 +68,21 @@ public class GameManager : MonoBehaviour {
     static bool translating = false;
     static public IEnumerator Translate (GameObject g, Tile a, Tile b) {
         translating = true;
-        g.transform.SetParent(null);
-        // Debug.Log("name=" + g.name);
-        // Debug.Log("a.GetPosition()=" + a.GetPosition() + " b.GetPosition()=" + b.GetPosition());
+
         for (float t = 0f; t < 1f; t = t+Time.deltaTime/duration) {
             float y = g.transform.position.y;
             g.transform.position = Vector3.Lerp(a.GetPosition(), b.GetPosition(), t) + Vector3.up*y;
             yield return null;
         }
 
-        if (g.GetComponent<Enemy>() != null)
-            g.GetComponent<Enemy>().SetPosition(b);
-        else if (g.GetComponent<Player>() != null) {
-            g.GetComponent<Player>().SetPosition(b);
-        }
+        // Debug.Log("b");
+        SetPosition(g, b);
 
-        sequence.Dequeue();
         if (sequence.Count > 0) {
-            sequence.Peek()();
+            sequence.Dequeue()();
+        } else {
+            translating = false;
         }
-        translating = false;
     }
 
     public GameObject GetPlayer() {

@@ -13,6 +13,15 @@ public class Tile : MonoBehaviour {
     public bool isGoal = false;
 
     //static is cringe
+    public bool Occupied () {
+        if (gameManager.playerPosition == this)
+            return true;
+        else if (Enemy.EnemyLocations.ContainsKey(this)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public Vector3 GetPosition () {
         return transform.position;

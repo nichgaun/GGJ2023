@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour {
     HexMap map;
-    public Tile position;
+    public Tile position, target;
     List<Tile> path;
     int speed = 3, maxSpeed = 3;
     Color color = Color.white;
@@ -40,47 +40,65 @@ public class Enemy : MonoBehaviour {
         gameManager.AddEnemy(this);
     }
 
-    public Tile NextStep () {
-        Tile tile = null;
-        if (path != null && path.Count > 0) {
-            tile = (path[path.Count-1]);
-            path.RemoveAt(path.Count-1);
-        }
-        return tile;
-    }
-
     public void Seek (Tile tile) {
-        path = map.FindPath(position, tile);
-        NextStep(); // throw away first step
+        target = tile;
     }
 
     public void SetPosition (Tile tile) {
         if (tile is null)
             return;
+
+        if (EnemyLocations.ContainsKey(tile) && EnemyLocations[tile] != this) {
+            Debug.LogError("what the flip");
+        }
         
         if (position != null && EnemyLocations.ContainsKey(position))
             EnemyLocations.Remove(position);
+
         position = tile;
         EnemyLocations[position] = this;
-        transform.position = position.transform.position + new Vector3(0f, 1f, 0f);
+
+
+        // foreach (var t in EnemyLocations.Keys) {
+        //     if (EnemyLocations[t].position != t) {
+        //         Debug.LogError("oh no! EnemyLocations[t].position=" + EnemyLocations[t].position + " vs t=" + t);
+        //     }
+        // }
+
+        transform.position = position.transform.position + Vector3.up;
     }
 
-    void Move () {
-        Tile tile = position;
-        for (int i = 0; i < speed; i++) {
-            var prevTile = tile;
-            var nextTile = NextStep();
-            if (nextTile is null)
-                break;
+    delegate void Mover ();
+    static Queue<Mover> moves = new Queue<Mover>();
+    static public bool moving = false;
+    
+    IEnumerator Move () {
+        moving = true;
+        var path = gameManager.hexMapObj.FindPath(position, target);
 
-            // SetPosition(tile);
-            gameManager.QueueTranslation(gameObject, prevTile, nextTile);
-            tile = nextTile;
-            
-            if (nextTile.isTrapped) // is trap
-                break;
+        if (path != null) {
+            path.Reverse();
+            for (int i = 0; i < path.Count-1 && i < speed; i++) {
+                if (path[i+1].Occupied())
+                    break;
+                yield return GameManager.Translate(gameObject, path[i], path[i+1]);
+            }
+        }
+
+        if (moves.Count > 0) {
+            moves.Dequeue()();
+        } else {
+            moving = false;
         }
     }
+
+    void QueueMove () {
+        moves.Enqueue(() => StartCoroutine(Move()));
+        if (!moving) {
+            moves.Dequeue()();
+        }
+    }
+
 
     public void Stun() {
         stunned = true;
@@ -112,7 +130,7 @@ public class Enemy : MonoBehaviour {
     public void Turn () {
         //Wanted to separate these bc i didn't know how to cascade them right
         if (!stunned && rooted <= 0) {
-            Move();
+            QueueMove();
         }
         if (!stunned) {
             if (attack.CheckShot()) {

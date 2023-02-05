@@ -212,7 +212,7 @@ public class HexMap : MonoBehaviour {
             }
 
             foreach (var neighbor in GetNeighbors(current)) {
-                float gScore = gScores[current] + 1f;
+                float gScore = gScores[current] + 1f + (neighbor.Occupied() ? 1000 : 0);
                 if (!gScores.ContainsKey(neighbor) || gScore < gScores[neighbor]) {
                     cameFrom[neighbor] = current;
                     gScores[neighbor] = gScore;
