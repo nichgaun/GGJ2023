@@ -38,6 +38,7 @@ public class Ability {
         a.effect = Stun;
         a.condition = StunCondition;
         a.cooldownMax = 3;
+        a.highlighter = TargetHighlighter;
     }
 
     static void InitMove (Ability a) {
@@ -51,18 +52,21 @@ public class Ability {
         a.effect = Root;
         a.condition = RootCondition;
         a.cooldownMax = 2;
+        a.highlighter = TargetHighlighter;
     }
 
     static void InitSlow (Ability a) {
         a.effect = Slow;
         a.condition = RootCondition;
         a.cooldownMax = 1;
+        a.highlighter = TargetHighlighter;
     }
 
     static void InitTrap (Ability a) {
         a.effect = Trap;
         a.condition = InRange;
         a.cooldownMax = 3;
+        a.highlighter = TrapHighlighter;
     }
 
     Dictionary<AbilityType, Initializer> AbilityInitializers = new Dictionary<AbilityType, Initializer> {
@@ -207,6 +211,30 @@ public class Ability {
 
         foreach (Tile validTile in moveTiles) {
             validTile.hexHighlight.SetActive(true);
+        }
+    }
+
+    static void TargetHighlighter(Ability a) {
+        Tile tile = a.gameManager.playerPosition;
+        List<Tile> moveTiles = tile.map.GetTilesInRange(tile, a.maxDistance);
+
+        foreach (Tile validTile in moveTiles) {
+            if (validTile.Occupied() && validTile != tile) {
+                validTile.hexHighlight.SetActive(true);
+            }
+            
+        }
+    }
+
+    static void TrapHighlighter(Ability a) {
+        Tile tile = a.gameManager.playerPosition;
+        List<Tile> moveTiles = tile.map.GetTilesInRange(tile, a.maxDistance);
+
+        foreach (Tile validTile in moveTiles) {
+            if (validTile != tile) {
+                validTile.hexHighlight.SetActive(true);
+            }
+            
         }
     }
 }
