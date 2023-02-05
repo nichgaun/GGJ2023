@@ -8,19 +8,20 @@ public class Enemy : MonoBehaviour {
     HexMap map;
     public Tile position;
     List<Tile> path;
-    int speed = 3;
+    int speed = 3, maxSpeed = 3;
     Color color = Color.white;
     public bool stunned = false;
+    public int rooted = 0;
     Renderer renderer;
     RangedAttack attack;
     [SerializeField] GameObject stunPrefab;
     GameObject stunImage;
+    GameManager gameManager;
 
     public static Dictionary<Tile, Enemy> EnemyLocations = new Dictionary<Tile, Enemy>();
 
     private void Start () {
         map = GameObject.Find("HexMap").GetComponent<HexMap>();
-        map.AddEnemy(this);
         renderer = GetComponent<Renderer>();
         attack = gameObject.GetComponent<RangedAttack>();
 
@@ -34,6 +35,9 @@ public class Enemy : MonoBehaviour {
         if (position == null) {
             SetPosition(map.GetRandomTile());
         }
+        
+        gameManager = Camera.main.GetComponent<GameManager>();
+        gameManager.AddEnemy(this);
     }
 
     public Tile NextStep () {
@@ -50,7 +54,7 @@ public class Enemy : MonoBehaviour {
         NextStep(); // throw away first step
     }
 
-    void SetPosition (Tile tile) {
+    public void SetPosition (Tile tile) {
         if (tile is null)
             return;
         
@@ -62,14 +66,18 @@ public class Enemy : MonoBehaviour {
     }
 
     void Move () {
-        Tile tile = null;
+        Tile tile = position;
         for (int i = 0; i < speed; i++) {
-            tile = NextStep();
-            if (tile is null)
+            var prevTile = tile;
+            var nextTile = NextStep();
+            if (nextTile is null)
                 break;
 
-            SetPosition(tile);
-            if (tile.isTrapped) // is trap
+            // SetPosition(tile);
+            gameManager.QueueTranslation(gameObject, prevTile, nextTile);
+            tile = nextTile;
+            
+            if (nextTile.isTrapped) // is trap
                 break;
         }
     }
@@ -86,31 +94,49 @@ public class Enemy : MonoBehaviour {
         yield return new WaitForSeconds(1);
         stunImage.SetActive(false);
     }
-
-    private void Update() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            Turn();
-        }
-        if (Input.GetKeyDown(KeyCode.S)) {
-            Stun();
-        }
+    
+    public void Root() {
+        rooted = 2;
+        SetColor();
+    }
+    public void Slow() {
+        speed = 1;
     }
 
-    private void Turn () {
-        if (!stunned) {
+    private void Update() {
+        // if (Input.GetKeyDown(KeyCode.Space)) {
+        //     Turn();
+        // }
+    }
+
+    public void Turn () {
+        //Wanted to separate these bc i didn't know how to cascade them right
+        if (!stunned && rooted <= 0) {
             Move();
+        }
+        if (!stunned) {
             if (attack.CheckShot()) {
                 attack.AttackPlayer();
             }
         }
-        else {
-            stunned = false;
+        stunned = false;
+        rooted--;
+        if (speed < maxSpeed) {
+            speed++;
         }
+        
         SetColor();
     }
 
     private void SetColor() {
-        color = stunned ? Color.yellow : Color.white;
+        //// ALERT ////
+        return; // ALERT short circuits
+        //// ALERT ////
+
+        //do any conditions supercede the other? stunned is stronger than rooted
+        if (stunned)           {color = Color.yellow;}
+        else if (rooted > 0 )  {color = Color.green; }
+        else                   {color = Color.white; }
         renderer.material.color = color;
     }
     

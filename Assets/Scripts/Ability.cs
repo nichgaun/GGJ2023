@@ -15,6 +15,7 @@ public enum AbilityType {
     Move,
     Trap,
     Slow,
+    Poop,
 }
 
 public class Ability {
@@ -23,6 +24,7 @@ public class Ability {
     public int maxDistance = 5;
     private int maxMove = 2;
     public int moveRemaining = 2;
+    public int cooldown = 0, cooldownMax = 0;
     private bool needClick = true;
 
     public bool used = false;
@@ -36,6 +38,7 @@ public class Ability {
     static void InitStun (Ability a) {
         a.effect = Stun;
         a.condition = StunCondition;
+        a.cooldownMax = 3;
     }
 
     static void InitMove (Ability a) {
@@ -45,11 +48,22 @@ public class Ability {
         a.highlighter = MoveHighlighter;
     }
 
-    static void InitRoot (Ability a) {}
+    static void InitRoot (Ability a) {
+        a.effect = Root;
+        a.condition = RootCondition;
+        a.cooldownMax = 2;
+    }
+
+    static void InitPoop (Ability a) {
+        a.effect = Poop;
+        a.condition = RootCondition;
+        a.cooldownMax = 1;
+    }
 
     static void InitTrap (Ability a) {
         a.effect = Trap;
         a.condition = InRange;
+        a.cooldownMax = 3;
     }
 
     static void InitSlow (Ability a) {
@@ -61,6 +75,7 @@ public class Ability {
         {AbilityType.Stun, InitStun},
         {AbilityType.Move, InitMove},
         {AbilityType.Root, InitRoot},
+        {AbilityType.Poop, InitPoop},
         {AbilityType.Trap, InitTrap},
         {AbilityType.Slow, InitSlow},
     };
@@ -86,7 +101,10 @@ public class Ability {
     }
 
     public void Turn () {
-        used = false;
+        cooldown--;
+        if (cooldown <= 0) {
+            used = false;
+        }
         moveRemaining = maxMove;
     }
 
@@ -120,6 +138,10 @@ public class Ability {
         return HasEnemy(obj, a) && InRange(obj, a);
     }
 
+    static bool RootCondition (GameObject obj, Ability a) {
+        return HasEnemy(obj, a) && InRange(obj, a);
+    }
+
     static bool DefaultCondition (GameObject obj, Ability a) {
         return true;
     }
@@ -134,6 +156,18 @@ public class Ability {
         enemy.Stun();
     }
 
+    static void Root (GameObject obj, Ability a) {
+        Tile tile = obj.GetComponent<Tile>();
+        var enemy = Enemy.EnemyLocations[tile];
+        enemy.Root();
+    }
+
+    static void Slow (GameObject obj, Ability a) {
+        Tile tile = obj.GetComponent<Tile>();
+        var enemy = Enemy.EnemyLocations[tile];
+        enemy.Slow();
+    }
+
     static void Trap (GameObject obj, Ability a) {
         Tile tile = obj.GetComponent<Tile>();
         var trap = GameObject.Instantiate(a.gameManager.trapPrefab, tile.transform.position, Quaternion.identity);
@@ -144,16 +178,24 @@ public class Ability {
         Tile tile = obj.GetComponent<Tile>();
         int distance = tile.map.GetDistance(a.gameManager.playerPosition, tile);
         a.moveRemaining -= distance;
-        a.gameManager.GetPlayer().transform.SetParent(tile.transform, false);
-        a.gameManager.playerPosition = tile;
+
+        var path = a.gameManager.hexMapObj.FindPath(a.gameManager.playerPosition, tile);
+
+        Debug.Log("player=" + a.gameManager.GetPlayer().name);
+
+        for (int i = path.Count-1; i > 0; i--) {
+            var player = a.gameManager.GetPlayer();
+            a.gameManager.QueueTranslation(player, path[i], path[i-1]);
+        }
     }
 
     // Effect
-    static void Slow (GameObject obj, Ability a) {
-        Debug.Log("Activating slow");
+    static void Poop (GameObject obj, Ability a) {
+        Debug.Log("I'm pooping");
     }
 
     static bool DefaultExhaust (Ability a) {
+        a.cooldown = a.cooldownMax;
         return true;
     }
 

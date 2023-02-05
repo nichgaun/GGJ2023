@@ -22,6 +22,7 @@ public class AbilityUI : MonoBehaviour {
     // Start is called before the first frame update
     void Start () {
         gameManager = Camera.main.GetComponent<GameManager>();
+        gameManager.SetAbilityUI(this);
 
         foreach (AbilityType type in Enum.GetValues(typeof(AbilityType))) {
             Ability ability = new Ability();
@@ -30,7 +31,7 @@ public class AbilityUI : MonoBehaviour {
         }
     }
 
-    private void Turn () {
+    public void Turn () {
         foreach (var ability in abilities) {
             ability.Turn();
         }
@@ -42,9 +43,9 @@ public class AbilityUI : MonoBehaviour {
             showUI = !showUI;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            Turn();
-        }
+        // if (Input.GetKeyDown(KeyCode.Space)) {
+        //     Turn();
+        // }
     }
     
     private void OnGUI() {
@@ -66,6 +67,13 @@ public class AbilityUI : MonoBehaviour {
             }
             i++;
         }
+        
+        
+        GUI.enabled = true;
+        if (GUI.Button(new Rect(15 + 105*i,15,80,80), "Next Turn")) {
+            gameManager.Turn();
+        }
+
         GUILayout.EndHorizontal();
     }
 
