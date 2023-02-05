@@ -123,7 +123,12 @@ public class Ability {
 
     static bool InMoveRange (GameObject obj, Ability a) {
         Tile tile = obj.GetComponent<Tile>();
-        int distance = tile.map.GetDistance(a.gameManager.playerPosition, tile);
+        int distance = tile.map.FindPath(a.gameManager.playerPosition, tile).Count-1;
+
+        if (tile.Occupied())
+            return false;
+
+        // Debug.Log("distance="+distance);
         return distance <= a.moveRemaining;
     }
 
@@ -169,7 +174,7 @@ public class Ability {
 
     static void Move (GameObject obj, Ability a) {
         Tile tile = obj.GetComponent<Tile>();
-        int distance = tile.map.GetDistance(a.gameManager.playerPosition, tile);
+        int distance = tile.map.FindPath(a.gameManager.playerPosition, tile).Count-1;
         a.moveRemaining -= distance;
 
         var path = a.gameManager.hexMapObj.FindPath(a.gameManager.playerPosition, tile);
@@ -185,7 +190,7 @@ public class Ability {
     }
 
     static bool Moves (Ability a) {
-        return a.moveRemaining == 0;
+        return a.moveRemaining <= 0;
     }
 
     static string DefaultDescribe (Ability a) {
